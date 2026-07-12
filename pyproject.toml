@@ -1,0 +1,63 @@
+# =============================================================================
+# pyproject.toml — metadados do pacote + configuração de ruff/black/pytest.
+# Regra de engenharia nº 7: `ruff` e `black` limpos (configuração incluída).
+# =============================================================================
+
+[project]
+name = "tonediv"
+version = "0.1.0"
+description = "Tone Distance: distância de tom entre os gestores na mesma earnings call (tese de Angelo, 2025), medida com FinBERT, como sinal quant. O pacote segue chamado tonediv por legado do pivô da tese antiga de Brockman."
+requires-python = ">=3.11"
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# -----------------------------------------------------------------------------
+# black — formatador (fonte da verdade do estilo)
+# -----------------------------------------------------------------------------
+[tool.black]
+line-length = 100          # um pouco acima do padrão: docstrings PT-BR são verbosas
+target-version = ["py311"]
+
+# -----------------------------------------------------------------------------
+# ruff — linter
+# -----------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+# E/W pycodestyle, F pyflakes (código morto/imports não usados — regra nº 7),
+# I isort (ordena imports), N pep8-naming, D pydocstyle (docstrings — regra nº 2),
+# B bugbear, UP pyupgrade, ANN anotações de tipo (regra nº 1).
+select = ["E", "W", "F", "I", "N", "D", "B", "UP", "ANN"]
+ignore = [
+  "D203",  # conflita com D211 (linha em branco antes da classe)
+  "D213",  # conflita com D212 (resumo na primeira linha)
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Scripts são orquestração fina; toleramos menos rigor de docstring interna.
+"scripts/*" = ["D103"]
+# Testes: nomes e docstrings mais livres.
+"tests/*" = ["D100", "D103", "ANN"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"      # docstrings estilo Google (regra nº 2)
+
+# -----------------------------------------------------------------------------
+# pytest
+# -----------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+markers = [
+  "slow: testes que exigem baixar/carregar o FinBERT (pulados sem modelo)",
+]

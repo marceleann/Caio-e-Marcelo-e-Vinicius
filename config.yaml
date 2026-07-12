@@ -1,0 +1,391 @@
+# =============================================================================
+# config.yaml — Tone Distance (Desafio Quant AI Itaú Asset 2026)
+# TESE ATUAL: distância de tom ENTRE OS GESTORES da mesma call (desacordo de tom
+# entre executivos), medida com FinBERT — método do Angelo (2025), ADR-023. O
+# projeto pivotou da tese antiga de Brockman, Li & Price (2015), "Tone
+# Divergence" analistas×gestão; o pacote continua chamado 'tonediv' por legado.
+# -----------------------------------------------------------------------------
+# FONTE ÚNICA DE VERDADE para TODOS os parâmetros do projeto.
+# Regra de engenharia nº 5: zero números mágicos no código — todo parâmetro
+# vive aqui, com comentário explicando a escolha e o intervalo razoável.
+# Toda decisão metodológica sutil abaixo está registrada em docs/DECISIONS.md.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 0) Reprodutibilidade / determinismo (regra nº 6)
+# -----------------------------------------------------------------------------
+seed: 42                      # semente global; propagada a numpy, torch, amostragens.
+                              # Qualquer aleatoriedade DEVE derivar desta semente.
+
+# -----------------------------------------------------------------------------
+# 1) Caminhos (regra nº 9: pathlib sempre; nada hardcoded fora daqui)
+#    Todos relativos à raiz do projeto (onde este config.yaml vive).
+# -----------------------------------------------------------------------------
+paths:
+  data_raw: data/raw               # downloads brutos (transcrições HF, preços yfinance)
+  data_interim: data/interim       # intermediários (papéis inferidos, scores FinBERT)
+  data_processed: data/processed   # features finais alinhadas a preço (parquet canônico)
+  data_outputs: data/outputs       # resultados: event study, backtests, grades, tearsheets
+  docs: docs                       # relatórios gerados (quality_report, etc.)
+
+# -----------------------------------------------------------------------------
+# 2) Período amostral e universo temporal
+#    2015 NÃO é corte de amostra — é só o ponto de divisão da análise de decay.
+# -----------------------------------------------------------------------------
+sample:
+  start_date: "2005-01-01"   # início da cobertura de transcrições do dataset
+  end_date: "2025-12-31"     # fim da cobertura
+  # Preços baixados ANTES do início amostral para cobrir a janela de estimação
+  # do market model (-120 pregões) dos primeiros eventos de 2005.
+  price_start_date: "2004-06-01"
+  timezone: "US/Eastern"     # fuso assumido para timestamps das calls (NYSE/Nasdaq)
+
+# -----------------------------------------------------------------------------
+# 3) Fontes de dados (100% open-source)
+# -----------------------------------------------------------------------------
+data_sources:
+  transcripts:
+    hf_dataset: "kurry/sp500_earnings_transcripts"  # HuggingFace, MIT, ~33k calls
+    split: "train"
+    content_field: "structured_content"  # campo com segmentação por orador
+  prices:
+    provider: "yfinance"
+    market_ticker: "^GSPC"     # proxy de mercado para o market model (S&P 500)
+    benchmarks: ["QQQ", "SPY"] # benchmarks de comparação da estratégia (buy-and-hold)
+    auto_adjust: true          # preços ajustados por proventos/splits
+    max_retries: 3             # tentativas por ticker em caso de falha de rede
+    retry_pause_seconds: 2     # pausa entre tentativas (educado com a API)
+
+# -----------------------------------------------------------------------------
+# 4) Filtros de qualidade das transcrições (armadilha nº 6)
+# -----------------------------------------------------------------------------
+quality:
+  min_chars_call: 500        # calls com menos texto são descartadas (transcrição truncada)
+  min_chars_utterance: 20    # falas abaixo disso viram ruído no FinBERT; descartadas
+  min_utterances_call: 5     # call precisa de estrutura mínima de diálogo
+  report_dropped: true       # quantas caíram e por quê -> quality_report.md
+
+# -----------------------------------------------------------------------------
+# 5) UNIVERSO TECH — definido por LISTA EXPLÍCITA, não por setor GICS.
+#    Motivo: GICS mudou em 2018 (Communication Services) e 2023 (pagamentos ->
+#    Financials), logo "setor = IT" não é estável no período. Ver DECISIONS.md ADR-001.
+#    Filtro aplicado CEDO (universe.py), ANTES do scoring FinBERT (etapa mais cara).
+# -----------------------------------------------------------------------------
+universe:
+
+  # --- MÉTODO DE CONSTRUÇÃO (decidido em conjunto; ver ADR-001) ---
+  # O universo NÃO é só a lista abaixo. universe.py o constrói em 3 passos:
+  #   1) REDE PROGRAMÁTICA: puxa sector/industry ATUAIS de cada ticker do dataset
+  #      via yfinance e inclui os nomes de tech ainda listados (pega o que
+  #      esquecemos, sem depender só da nossa memória).
+  #   2) UNIÃO com a lista curada (núcleo + survivorship abaixo) — a lista cobre
+  #      as DESLISTADAS, que a rede atual não alcança (já não existem no yfinance).
+  #   3) SUBTRAÇÃO: todo ticker de `sensitivity_blocks` é REMOVIDO do núcleo
+  #      automático e tratado só pelos blocos. Sem isso, a Yahoo classifica
+  #      UBER/ENPH/FSLR/JBL/FLEX como "Technology" e eles entrariam no núcleo,
+  #      deixando de ser removíveis — o que quebraria o teste de sensibilidade.
+  # Núcleo escolhido: IT clássico + internet/mídia INTERATIVA (não telecom/mídia
+  # tradicional). A revisão humana da união final é registrada no quality_report.
+  discovery:
+    use_yfinance_sector: true
+    core_sectors: ["Technology"]        # sector Yahoo ~ proxy de GICS-IT -> núcleo
+    core_comm_industries:                # Communication Services que É tech de fato
+      - "Internet Content & Information"  # GOOGL, META, MTCH...
+      - "Electronic Gaming & Multimedia"  # EA, TTWO...
+    core_comm_extra_tickers: [NFLX]      # streaming digital-native (não varre Disney/Comcast)
+    exclude_comm_industries:             # telecom/mídia tradicional FORA do núcleo
+      - "Telecom Services"
+      - "Broadcasting"
+      - "Entertainment"
+      - "Advertising Agencies"
+      - "Publishing"
+
+  # --- NÚCLEO CURADO — IT clássico (sempre dentro) ---
+  # Aditivos vs. o prompt original: FICO, TDC (Teradata), COHR (Coherent),
+  # PAYC (Paycom), JKHY (Jack Henry) — todos GICS-IT que faltavam.
+  core_it:        [AAPL, MSFT, NVDA, AVGO, ORCL, CRM, ADBE, AMD, INTC, CSCO, QCOM,
+                   TXN, IBM, INTU, NOW, AMAT, MU, LRCX, KLAC, ADI, SNPS, CDNS, MCHP,
+                   NXPI, "ON", MPWR, SWKS, QRVO, TER, HPQ, HPE, DELL, WDC, STX, NTAP,
+                   ANET, MSI, GLW, APH, TEL, KEYS, ZBRA, TRMB, CTSH, ACN, EPAM, DXC,
+                   ADSK, ANSS, PTC, TYL, GDDY, VRSN, AKAM, FFIV, JNPR, GEN, PANW,
+                   FTNT, CRWD, CDW, IT, SMCI, PLTR, WDAY, FICO, TDC, COHR, PAYC, JKHY]
+
+  # --- NÚCLEO CURADO — internet/mídia interativa (sempre dentro) ---
+  # Só saíram do IT por reclassificação GICS de 2018; conceitualmente são tech.
+  core_internet_media: [GOOGL, GOOG, META, NFLX, EA, TTWO, ATVI, MTCH]
+
+  # --- SURVIVORSHIP: deslistadas/adquiridas (entram ATÉ a data de saída) ---
+  # Presença/ausência no dataset é o TESTE DE SURVIVORSHIP (script 00). Aditivos:
+  # software (NOVL, SEBL, PSFT, BMC, CPWR, MERQ), semis (LSI, ATML, CY, CAVM),
+  # comm-equip (JDSU, TLAB, NVLS, MOLX), internet (AOL).
+  delisted_check: [YHOO, LNKD, SUNW, JAVA, EMC, BRCM, ALTR, XLNX, MXIM, LLTC, RHT,
+                   VMW, CTXS, CA, TWTR, NUAN, SYMC, MOT, PALM, RIMM, FSL, SNDK,
+                   NOVL, SEBL, PSFT, BMC, CPWR, MERQ, LSI, ATML, CY, CAVM,
+                   JDSU, TLAB, NVLS, MOLX, AOL]
+
+  # Aliases aplicados ANTES de qualquer agrupamento por empresa. Sem isso, o
+  # ΔTone (que compara com a call anterior da MESMA empresa) quebra na troca de
+  # ticker (FB->META, PCLN->BKNG, ...). Formato {ticker_antigo: ticker_canonico}.
+  ticker_aliases: {FB: META, PCLN: BKNG, FISV: FI, SYMC: GEN, NLOK: GEN, JAVA: SUNW}
+
+  # Símbolo usado NO YAHOO quando difere do ticker canônico (ex.: Fiserv trocou
+  # FISV->FI em 2023, mas o Yahoo manteve FISV). Descoberto no diagnóstico real.
+  price_symbol_overrides: {FI: FISV}
+
+  # --- BLOCOS DE SENSIBILIDADE (rodam COM e SEM cada um; 5 ativos) ---
+  # Transforma a discussão subjetiva "isso é tech?" em resultado empírico. Os
+  # tickers aqui NÃO entram no núcleo (regra de subtração acima).
+  # Revisão pós-diagnóstico real (ADR-001): a rede programática pescou ADP/PAYX/
+  # BR (Yahoo os classifica como Technology) — o bloco `payroll` previsto como
+  # reversível foi criado; SANM (EMS) e CPAY (pagamentos corporativos) foram
+  # movidos da rede para os blocos correspondentes, por consistência.
+  sensitivity_blocks:
+    payments:      [V, MA, PYPL, FIS, FI, GPN, CPAY]        # redes/plataformas de pagamento
+    payroll:       [ADP, PAYX, BR]                          # folha/back-office (Yahoo-Tech, GICS-Industrials)
+    non_gics_tech: [AMZN, TSLA, UBER, ABNB, BKNG, EXPE, EBAY]  # marketplaces tech-enabled fora do IT
+    solar_tech:    [ENPH, FSLR, SEDG]                        # GICS-IT, mas negócio é energia solar
+    ems:           [JBL, FLEX, SANM]                         # fabricação eletrônica terceirizada
+
+# -----------------------------------------------------------------------------
+# 6) Heurística de papéis analista × gestão (roles.py)
+#    O campo `speaker` traz o NOME, não o papel. Regras em DECISIONS.md ADR-006.
+# -----------------------------------------------------------------------------
+roles:
+  operator_label: "Operator"   # rótulo tratado como neutro (descartado do sinal)
+  # Detecção do início do Q&A em 3 classes de marcadores (substrings LITERAIS,
+  # case-insensitive), avaliadas SÓ em falas do Operator. Design endurecido em
+  # duas rodadas de revisão multi-agente (ver ADR-006):
+  #   FORTES  -> transição inequívoca; abrem o Q&A em QUALQUER posição (cobre
+  #              transcrições só-Q&A, sem remarks);
+  #   FRACOS  -> jargão ambíguo ("question-and-answer session" aparece também
+  #              na fala de ABERTURA como aviso); só abrem após uma fala
+  #              NOMEADA de não-Operator e sem padrão de aviso na mesma fala;
+  #   AVISO   -> anti-padrões: se presentes na fala, ela é aviso de abertura
+  #              ("Later, we will conduct...") e NUNCA abre o Q&A.
+  # qa_start_markers NÃO pode ser vazio nem string escalar (config.py falha alto).
+  qa_start_markers:
+    - "first question comes from"
+    - "first question is from"
+    - "first question today comes from"
+    - "we will now begin the question"
+    - "we'll now begin the question"
+    - "we will now conduct a question"
+    - "we will now start the question"
+    - "the floor is now open for questions"
+    - "we will take our first question"
+    - "we'll take our first question"
+    # Formato antigo (~2005-2010): o Operator conduz por "next question" e os
+    # oradores vêm prefixados "Q -"/"A -" (recupera ~1.088 calls sem Q&A — a 1ª
+    # ocorrência marca o início do Q&A; ver revisão de fidelidade, ADR-025).
+    - "next question comes from"
+    - "next question is from"
+    - "our next question"
+    - "your next question"
+    - "your question please"
+    - "your line is open"
+    - "you may ask your question"
+  qa_start_markers_weak:
+    - "question-and-answer session"
+    - "question and answer session"
+  qa_aviso_markers:
+    - "later, we will conduct"
+    - "later we will conduct"
+    - "instructions will follow"
+    - "will follow at that time"
+    - "withdraw your question"   # instrução de retirada nos remarks; NÃO abre o Q&A
+  # Regex para extrair o nome do analista anunciado pelo Operator, usado como
+  # CONFIRMAÇÃO de papel (ex.: "...comes from John Doe with Morgan Stanley").
+  analyst_intro_regex: "(?:from|of)\\s+([A-Z][a-zA-Z.'-]+(?:\\s+[A-Z][a-zA-Z.'-]+){0,3})\\s+(?:with|of|at|from)\\s+"
+  validation:
+    sample_size: 20            # nº de calls sorteadas para conferência manual
+    seed: 42                   # semente da amostragem (determinismo)
+    export_utterance_chars: 200  # truncamento da primeira fala no CSV de validação
+
+# -----------------------------------------------------------------------------
+# 7) FinBERT / scoring de tom (scorer.py)
+#    id2label lido em RUNTIME (armadilha nº 3); nunca hardcodar a ordem dos labels.
+# -----------------------------------------------------------------------------
+finbert:
+  model_name: "yiyanghkust/finbert-tone"  # 3 classes: negative/neutral/positive
+  max_tokens: 512              # limite do encoder; falas maiores são chunked
+  # Sem parâmetro de overlap de chunks: "sem sobreposição" é decisão FIXA de
+  # design (ADR-015) — um parâmetro ignorado seria no-op silencioso.
+  batch_size: 16               # ajustar conforme VRAM/CPU disponível
+  # Checkpointing: o scoring de ~300k falas leva horas em CPU; pontuamos em
+  # fatias e salvamos cada uma, para um restart RETOMAR de onde parou (a máquina
+  # pode dormir/reiniciar no meio). ~4000 falas/fatia ≈ 7-10 min/fatia.
+  checkpoint_shard_utterances: 4000
+  device: "auto"               # "auto" -> cuda se disponível, senão cpu
+  # Frases-sentinela do teste unitário de labels (test_scorer_labels.py):
+  # garante que positivo>negativo em texto claramente otimista e vice-versa.
+  sentinel_positive: "Revenue grew strongly and margins expanded this quarter."
+  sentinel_negative: "Sales collapsed and we expect further significant losses."
+
+# -----------------------------------------------------------------------------
+# 8) Features do sinal (features.py) — as 7 features + versões _idio
+# -----------------------------------------------------------------------------
+features:
+  # Ajuste idiossincrático por PARES do setor em janela rolante POINT-IN-TIME:
+  # só calls que JÁ aconteceram, olhando 90 dias corridos para trás. NUNCA a
+  # média do trimestre inteiro (incluiria futuro). Ver DECISIONS.md ADR-004.
+  peer_window_days: 90
+  peer_min_calls: 3            # mínimo de pares na janela p/ calcular a média; senão NaN
+  idio_features: ["delta_tone", "tone_js_prev", "mgmt_analyst_divergence"]
+  # TONE DISTANCE (tese Angelo 2025, medida com FinBERT — ADR-023): divergência
+  # de tom ENTRE os gestores da MESMA call. Cada gestor vira um ponto
+  # (p_pos, p_neg) agregado por tokens; distância euclidiana até a média dos
+  # gestores; Tone Distance = média dessas distâncias. Precisa de >= min_managers
+  # gestores, cada um com >= min_manager_tokens tokens pontuados; senão NaN.
+  tone_distance:
+    min_managers: 2
+    min_manager_tokens: 25
+  # SINAL LIMPO (ADR-023): a distância de tom crua é confundida por nível de tom,
+  # tom dos analistas, tamanho e comprimento da call. O sinal OPERÁVEL é o
+  # RESÍDUO da distância de tom sobre esses confundidores, ajustado SÓ com dados
+  # passados (residualize_pit). O script 04b grava a coluna tone_distance_clean.
+  clean_signal:
+    confounders: [disclosure_tone, analyst_tone, analyst_tone_distance, size_proxy, length]
+    min_history: 250
+
+# -----------------------------------------------------------------------------
+# 9) Alinhamento point-in-time texto->preço (pit.py) — regras anti-look-ahead
+#    Inegociáveis. Ver DECISIONS.md ADR-002 e ADR-003.
+# -----------------------------------------------------------------------------
+pit:
+  market_close_et: "16:00"     # fronteira usada no diagnóstico de horários (script 00)
+  market_open_et: "09:30"      # abertura do pregão (NYSE/Nasdaq)
+  # BUFFER DE DURAÇÃO (revisão da Fase 3, achado 3/3): uma call dura 45–75 min
+  # e as features usam a transcrição COMPLETA — o Q&A (fonte da tese) acontece
+  # no FIM. Para decidir no open do MESMO dia, a call precisa ter começado
+  # cedo o bastante para TERMINAR antes das 09:30: início <= 09:30 − buffer.
+  # Com 75 min (conservador), só calls iniciadas até 08:15 são same-day; as
+  # 674 calls reais (12,4%) iniciadas 08:30–09:29 passam a decidir em T+1.
+  assumed_call_duration_minutes: 75
+  # Horário ausente/suspeito (00:00:00, nulo) OU call durante o pregão ->
+  # decisão CONSERVADORA em T+1 open. (Não há parâmetro para mudar isso, nem
+  # para a direção do merge_asof: T+1 e 'backward' são fixos por design —
+  # ADR-002/003; um parâmetro ignorável seria no-op silencioso.)
+  suspicious_times: ["00:00:00"]
+
+# -----------------------------------------------------------------------------
+# 10) Retornos futuros e horizontes (regra nº 5 anti-look-ahead)
+#     Entrada no OPEN do pregão de decisão; saída no CLOSE H pregões depois.
+# -----------------------------------------------------------------------------
+returns:
+  # H em pregões. Curtos (3-10) = janela do anúncio; 21 e 63 (~1 e 3 meses)
+  # capturam o PRÊMIO pós-anúncio da tese Angelo (retorno mensal em ~3 meses).
+  horizons: [3, 5, 10, 21, 63]
+  entry: "open"                # nunca o close do dia da call
+  exit: "close"
+
+# -----------------------------------------------------------------------------
+# 11) Event study (event_study.py) — evidência de suporte
+# -----------------------------------------------------------------------------
+event_study:
+  estimation_start: -120       # janela de estimação do market model (pregões, relativo a t=0)
+  estimation_end: -21
+  event_start: -1              # janela do evento
+  event_end: 10
+  min_estimation_obs: 60       # mínimo de pregões válidos p/ estimar alpha/beta; senão descarta
+  groups: "tercile"            # {tercile | quintile} p/ agrupar por magnitude da feature
+  # (Sem newey_west_lags aqui: a tabela de grupos usa teste t simples/Welch por
+  # decisão documentada — ADR-018; NW pertence às SÉRIES do portfólio.)
+  bootstrap_iters: 2000        # reamostragens por evento p/ IC do CAR
+  placebo:
+    fake_date_iters: 1000      # nº de datas falsas por evento (distribuição nula do CAR)
+    max_shift_days: 250        # deslocamento máximo (±) da data falsa, em pregões
+
+# -----------------------------------------------------------------------------
+# 12) Estratégia / backtest calendar-time (calendar_portfolio.py) — ENTREGÁVEL
+#     Posições sobrepostas estilo Jegadeesh-Titman. Ver DECISIONS.md ADR-005.
+# -----------------------------------------------------------------------------
+strategy:
+  holding_days: 63             # ~3 meses: horizonte do prêmio pós-anúncio (tese Angelo, Tabela 6)
+  # Variantes: long_short tem exposição líquida RESIDUAL (cohorts esparsos são
+  # por vezes unilaterais — medido na auditoria da Fase 4); a exposição diária
+  # é reportada como diagnóstico e uma série hedgeada (net_exp × mercado
+  # subtraído) acompanha os resultados. long_only compara vs. benchmark.
+  variants: ["long_short", "long_only"]
+  # Sinal-gatilho: a DISTÂNCIA DE TOM entre os gestores (tese Angelo 2025),
+  # medida com FinBERT — ADR-023. Mede o desacordo de tom entre os executivos
+  # da própria call.
+  signal_feature: "tone_distance_clean"  # resíduo estritamente-passado (ADR-023); o cru é confundido
+  # Direção: +1 = COMPRAR distância de tom alta. Ela cai no anúncio, mas rende
+  # MAIS nos ~3 meses seguintes (prêmio de risco, Angelo Tabela 6). Direção
+  # fixada pelo paper, a priori — não é escolha nossa de maximizar retorno.
+  signal_direction: 1
+  # top_fraction DEVE ser < 0.5 (config.py falha alto): com >= 0.5 as zonas
+  # long e short se sobreporiam. Empates de percentil usam MIDRANK — sinal
+  # constante fica NO MEIO (side 0), nunca vira carteira 100% comprada.
+  top_fraction: 0.2            # fração long (e short, na variante LS) do universo elegível
+  # Eventos são esparsos: o percentil do sinal é calculado contra os eventos
+  # dos últimos N dias corridos ESTRITAMENTE anteriores à decisão (PIT, mesma
+  # lógica da janela _idio). 90d ~ um trimestre de calls.
+  signal_rank_window_days: 90
+  min_rank_history: 20         # nº mínimo de eventos na janela p/ rankear; senão fica de fora
+  max_weight_per_name: 0.10    # limite de concentração por nome (capacidade/risco)
+  # Nº de permutações do placebo de sinal aleatório do script 06 (um único
+  # sorteio não tem valor inferencial; reportamos média e melhor placebo).
+  placebo_portfolio_perms: 20
+  liquidity:
+    adv_window_days: 60        # janela do volume médio diário em dólar (point-in-time)
+    min_adv_usd: 5000000       # piso de liquidez (US$ 5MM/dia); capacidade importa
+  # (Sem parâmetros cash_return/weight_scheme/signal_rank: caixa a 0%, pesos
+  # iguais e gatilho top/bottom são FIXOS por design — ADR-018; parâmetro
+  # ignorado seria no-op silencioso.)
+
+# -----------------------------------------------------------------------------
+# 13) Custos de transação (costs.py)
+#     Mercado americano ~5 bps/perna (mais barato que os 15 bps da B3). Configurável.
+# -----------------------------------------------------------------------------
+costs:
+  bps_per_side: 5.0            # custo por perna, em basis points
+
+# -----------------------------------------------------------------------------
+# 14) Métricas (metrics.py)
+# -----------------------------------------------------------------------------
+metrics:
+  trading_days_year: 252       # anualização de Sharpe
+  newey_west_lags: 5           # t-stat HAC das séries de retorno
+  # (IC e Deflated Sharpe são sempre calculados — não há flag para desligá-los;
+  # o n_trials do DSR é o tamanho REAL da grade, preenchido pelo script 07.)
+
+# -----------------------------------------------------------------------------
+# 15) Validação temporal (validation.py)
+# -----------------------------------------------------------------------------
+validation:
+  purged_kfold:
+    n_splits: 5                # dobras temporais para escolha de hiperparâmetro
+    embargo_days: 15           # em dias CORRIDOS: >= horizonte máx (10 PREGÕES ~ 14
+                               # corridos) — auditoria da Fase 4 pegou 10 corridos < 10 pregões
+  holdout_months: 18           # últimos ~18 meses intocados até o fim (holdout temporal)
+  # Placebo CORRETO: permuta o sinal DENTRO de cada data/janela cross-section
+  # (preserva estrutura temporal). NÃO embaralha o painel inteiro (armadilha nº 4).
+  placebo_perm_iters: 1000
+  pbo_cscv_blocks: 16          # nº de blocos do CSCV para PBO (par; López de Prado)
+  min_cell_events: 50          # célula da grade precisa de >= N eventos; células
+                               # abaixo entram na tabela com métricas NaN (nada some)
+  # Eixo de features da grade do script 07. A tese atual é a distância de tom
+  # (Angelo com FinBERT); as demais entram como comparação/robustez.
+  grid_features: [tone_distance_clean, tone_distance, net_tone, delta_tone, tone_js_prev, tone_dispersion,
+                  mgmt_analyst_divergence, mgmt_analyst_divergence_signed,
+                  qa_remarks_gap, delta_tone_idio, tone_js_prev_idio,
+                  mgmt_analyst_divergence_idio]
+  # Teste do harness com ruído puro: p esperado é uniforme sob H0, então a
+  # asserção usa margem folgada (armadilha nº 5). p > este limiar = "sem alpha".
+  noise_pvalue_floor: 0.20
+
+# -----------------------------------------------------------------------------
+# 16) Análise de decay (decay.py)
+#     2015 = publicação de Brockman, Li & Price (FAJ). Compara pré vs pós.
+# -----------------------------------------------------------------------------
+decay:
+  split_year: 2015             # fronteira pré/pós-publicação
+  compare_metrics: ["ic", "car", "sharpe"]  # métricas comparadas entre regimes
+
+# -----------------------------------------------------------------------------
+# 17) Logging (regra nº 8)
+# -----------------------------------------------------------------------------
+logging:
+  level: "INFO"                # {DEBUG | INFO | WARNING | ERROR}
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"

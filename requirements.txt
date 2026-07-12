@@ -1,0 +1,35 @@
+# =============================================================================
+# requirements.txt — versões PINADAS para reprodutibilidade (regra nº 13).
+# Python 3.11+ obrigatório (type hints modernos, tomllib, etc.).
+# Instalar com: pip install -r requirements.txt  (ver Makefile alvo `install`).
+# =============================================================================
+
+# --- Dados / numérico ---
+numpy==1.26.4
+pandas==2.2.3
+pyarrow==17.0.0          # backend parquet (regra nº 11: dados em parquet)
+scipy==1.14.1
+statsmodels==0.14.4     # Newey-West (HAC), OLS do market model
+
+# --- Fontes de dados ---
+datasets==3.2.0         # HuggingFace: kurry/sp500_earnings_transcripts
+huggingface-hub==0.27.0
+yfinance==1.5.1         # preços de ações + ^GSPC/SPY/QQQ (0.2.50 quebrou com a
+                        # API atual do Yahoo — 0 preços/setores; atualizado 2026-07)
+
+# --- NLP / FinBERT ---
+transformers==4.47.1    # yiyanghkust/finbert-tone
+torch==2.5.1            # backend do FinBERT (CPU ou CUDA)
+tokenizers==0.21.0
+
+# --- Config / util ---
+PyYAML==6.0.2           # leitura do config.yaml
+tqdm==4.67.1            # barras de progresso em scripts
+
+# --- Visualização (tearsheet, diagnósticos) ---
+matplotlib==3.9.3
+
+# --- Qualidade de código / testes (regras nº 7, 12) ---
+pytest==8.3.4
+ruff==0.8.4
+black==24.10.0

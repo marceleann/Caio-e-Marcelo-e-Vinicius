@@ -1,0 +1,31 @@
+# --- Dados gerados (não versionar; reproduzíveis pelo pipeline) ---
+data/raw/
+data/interim/
+data/processed/
+data/outputs/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+.venv311/
+venv/
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Ferramentas ---
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# --- Modelos/caches pesados baixados ---
+.cache/
+hf_cache/
+
+# --- SO / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
