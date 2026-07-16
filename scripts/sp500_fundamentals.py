@@ -122,10 +122,15 @@ def main():
             e, _ = pit_value(by[(t, "equity")], cd)
             if np.isfinite(e) and np.isfinite(row.ln_mktcap):
                 out["btm"][k] = e / np.exp(row.ln_mktcap)
+        L = np.nan
         if (t, "liab") in by:
             L, _ = pit_value(by[(t, "liab")], cd)
-            if np.isfinite(L):
-                out["lev"][k] = L / a
+        if not np.isfinite(L) and (t, "equity") in by:
+            e2, _ = pit_value(by[(t, "equity")], cd)
+            if np.isfinite(e2):
+                L = a - e2          # identidade contábil: Passivos = Ativos - PL
+        if np.isfinite(L):
+            out["lev"][k] = L / a
         # séries trimestrais de fluxo (filed < call), últimas 8 obs
         def flow_series(var):
             g = by.get((t, var))
@@ -144,10 +149,15 @@ def main():
         rd = flow_series("rd")
         out["rd_at"][k] = (float(rd["val"].tail(4).sum()) / a) if rd is not None and len(rd) else 0.0
         tax, pre = flow_series("tax"), flow_series("pretax")
-        if tax is not None and pre is not None and len(tax) >= 4 and len(pre) >= 4:
-            pt = float(pre["val"].tail(4).sum())
-            if pt > 0:
-                out["etr"][k] = float(tax["val"].tail(4).sum()) / pt
+        pt = tx = np.nan
+        if tax is not None and len(tax) >= 4:
+            tx = float(tax["val"].tail(4).sum())
+            if pre is not None and len(pre) >= 4:
+                pt = float(pre["val"].tail(4).sum())
+            elif ni is not None and len(ni) >= 4:
+                pt = float(ni["val"].tail(4).sum()) + tx   # identidade: pré-imposto = LL + imposto
+        if np.isfinite(pt) and pt > 0 and np.isfinite(tx):
+            out["etr"][k] = tx / pt
     for c in FUND_CONTROLS:
         ev[c] = out[c]
     ev.to_parquet(OUTDIR / "events_sp500_full.parquet", index=False)
