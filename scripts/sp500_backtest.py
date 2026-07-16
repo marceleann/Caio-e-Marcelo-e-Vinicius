@@ -96,6 +96,24 @@ def stats(r, active, label):
 
 def main():
     ev = pd.read_parquet(OUTDIR / "events_sp500_h2.parquet")
+    tv = OUTDIR / "td_variants.parquet"
+    if tv.exists():   # td_w = TD ponderada por palavras (Tabela 8 col 1 do paper)
+        ev = ev.merge(pd.read_parquet(tv)[["call_id", "td_w"]], on="call_id", how="left")
+        # sinal FE-consistente: percentil do td_w CONTRA O PRÓPRIO HISTÓRICO da
+        # firma (estritamente passado, mín. 6 calls). Racional: o efeito da
+        # Tabela 6 é identificado COM FE de firma — é desvio do próprio nível,
+        # não comparação entre firmas (TD é persistente, Tabela 2 do paper).
+        ev = ev.sort_values(["ticker", "cdate"]).reset_index(drop=True)
+        def own_pct(s):
+            out = np.full(len(s), np.nan)
+            v = s.to_numpy(float)
+            for i in range(len(v)):
+                past = v[:i]
+                past = past[np.isfinite(past)]
+                if len(past) >= 6 and np.isfinite(v[i]):
+                    out[i] = (past < v[i]).mean() + 0.5 * (past == v[i]).mean()
+            return pd.Series(out, index=s.index)
+        ev["td_w_own"] = ev.groupby("ticker")["td_w"].transform(own_pct)
     px = pd.concat([pd.read_parquet(p) for p in (SP / "price_shards").glob("*.parquet")],
                    ignore_index=True).sort_values(["ticker", "date"])
     mkt = px[px["ticker"] == "^GSPC"].dropna(subset=["adj_close"])
@@ -107,7 +125,11 @@ def main():
         tick[t] = (g["date"].to_numpy("datetime64[ns]"), g["adj_close"].pct_change().to_numpy())
 
     for sigcol, lbl in [("td", "SINAL PRIMÁRIO: TD crua (como o Angelo)"),
+                        ("td_w", "TD PONDERADA por palavras (T8c1 do paper)"),
+                        ("td_w_own", "td_w vs PRÓPRIO histórico (FE-consistente)"),
                         ("z", "braço secundário (log p/ DSR): z")]:
+        if sigcol not in ev.columns:
+            continue
         lr, sr, act, used = build_portfolio(ev, tick, cal, sigcol)
         ls = lr - sr
         print("\n" + "=" * 84)
