@@ -131,10 +131,31 @@ mesmo segmentador/modelo), retomável (1 parquet/call), ordem embaralhada
 determinística (qualquer prefixo é representativo), sessões de 12h. Ao
 completar (ou com prefixo grande), montar TD_FinBERT e rodar toda a suíte.
 
+## 5b. Adendo (madrugada de 16/07) — FF49 e otimização do scorer
+
+- **Industry Tone agora é FF49 exato** (`sp500_ff49.py`): SIC de cada CIK via
+  EDGAR submissions (603/603) + Siccodes49 do Ken French; média leave-one-out
+  por indústria-trimestre (>=3 pares). Cobertura 76%→85% (o GICS do yfinance
+  tinha `sector` nulo em 23% dos eventos — era um dreno de amostra em TODAS as
+  regressões). Com FF49 e n=24.953 (544 firmas), o achado central sustenta:
+  td_w CAR t=−2.34/−2.35/−1.94; vol futura t=+2.30/+3.01; TD base segue nula.
+- **Scorer FinBERT otimizado:** quantização dinâmica int8 (validada: argmax
+  100% igual ao fp32, max|Δp|=1e-4) + fila com prioridade para as 22.246 calls
+  elegíveis à regressão. Taxa 19,5→42,6 sent/s; ETA da fila elegível ~63h
+  (sessões de 11-12h, retomável). `sp500_td_finbert.py` monta TD_FinBERT
+  (igual-ponderada e ponderada por tokens, espelhos exatos do braço LM) e
+  roda as regressões no subset pontuado — leitura interina viável já com o
+  prefixo aleatório da primeira noite (~4k calls).
+- Interinos FinBERT (5.419 calls tech antigas): corr(td_lm, td_fb)=+0.19,
+  corr(td_w, td_fb_w)=+0.21 — correlação baixa entre as medidas de tom é
+  esperada (léxico vs modelo) e é exatamente o que torna o braço FinBERT um
+  teste informativo, não redundante.
+
 ## 6. Arquivos novos desta rodada
 
 `sp500_speaker_counts.py`, `sp500_fund_v2.py`, `sp500_paper_suite.py`,
 `sp500_diag_controls.py`, `sp500_table6.py`, `sp500_table78.py`,
-`sp500_tdw_deep.py`, `sp500_score_finbert.py`; dados: `speaker_counts.parquet`,
+`sp500_tdw_deep.py`, `sp500_score_finbert.py`, `sp500_td_finbert.py`,
+`sp500_ff49.py`; dados: `speaker_counts.parquet`,
 `fundamentals_facts_v2.parquet`, `events_sp500_paper.parquet`,
-`td_variants.parquet`.
+`td_variants.parquet`, `cik_sic.parquet`, `tone_distance_finbert.parquet`.
