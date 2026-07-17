@@ -2,9 +2,48 @@
 
 **Distância de tom entre os gestores dentro da mesma earnings call como sinal
 quantitativo.**
-Desafio Quant AI — Itaú Asset 2026. Time de 2 pessoas · 20 dias · 100% open-source.
+Desafio Quant AI — Itaú Asset 2026 · 100% open-source.
 
 ---
+
+## ⭐ Estado atual (julho/2026) — replicação S&P 500 completa
+
+O projeto evoluiu do estudo-piloto em tech (descrito abaixo) para a **replicação
+fiel de Angelo et al. (2025)** no S&P 500 completo (33 mil calls, 2005–2025,
+685 empresas). Resultado central: a **Tone Distance ponderada pelas palavras de
+cada gestor** (Tabela 8 do próprio paper) reproduz o arco completo do artigo em
+large caps — CAR negativo no anúncio (t≈−2,9), volatilidade futura maior
+(t≈+3,6) e retorno mensal subsequente positivo (t≈+2,3). A versão
+igual-ponderada é nula: a ponderação é a informação. Leia:
+
+- **[docs/REVISAO_ANGELO_TABELAS.md](docs/REVISAO_ANGELO_TABELAS.md)** — a
+  revisão de fidelidade tabela a tabela contra o paper, com todos os números;
+- **[data/README.md](data/README.md)** — mapa dos dados versionados
+  (arquivo → script que o produz → fonte primária).
+
+### Como replicar (sem reprocessar nada)
+
+Todos os dados derivados estão versionados no repo. Basta:
+
+```bash
+git clone https://github.com/marceleann/Caio-e-Marcelo-e-Vinicius.git
+cd Caio-e-Marcelo-e-Vinicius
+pip install pandas numpy statsmodels pyarrow          # o suficiente p/ análises
+python scripts/sp500_tdw_deep.py      # resultado central (TD ponderada)
+python scripts/sp500_paper_suite.py   # Tabelas 3/4/5 do paper
+python scripts/sp500_table6.py        # retorno mensal (Tabela 6)
+python scripts/sp500_backtest.py      # carteira calendar-time
+```
+
+Cada script imprime as regressões com n, coeficiente, t e p — os mesmos números
+dos docs. Para refazer **do zero** (texto → TD → CAR → fundamentos), o
+`requirements.txt` completo e as fontes estão documentados em
+[data/README.md](data/README.md); as transcrições baixam sozinhas do
+HuggingFace na primeira execução.
+
+---
+
+## Estudo-piloto original (universo tech) — histórico
 
 ## A tese
 

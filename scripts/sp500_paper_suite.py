@@ -61,6 +61,10 @@ def run(df, yvar, tdvar, controls, label):
 def main():
     ev = pd.read_parquet(OUTDIR / "events_sp500_paper.parquet")
     ev["cdate"] = pd.to_datetime(ev["cdate"])
+    # idempotência: colunas que este script cria são descartadas se já existem
+    # (o parquet versionado já veio com elas; sem isso o merge duplica nomes)
+    made = ["lagged_avg_td", "lagged_avg_td4", "analyst_tone_disp"]
+    ev = ev.drop(columns=[c for c in made if c in ev.columns])
 
     # ---- Lagged AVERAGE TD: média dos 4 TDs anteriores da firma (Apêndice A) ----
     td_all = pd.read_parquet(OUTDIR / "tone_distance_sp500.parquet")
