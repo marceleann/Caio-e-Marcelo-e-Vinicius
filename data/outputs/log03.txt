@@ -1,0 +1,235 @@
+2026-07-07 20:32:06,825 | INFO     | tonediv.nlp.scorer | Carregando FinBERT (yiyanghkust/finbert-tone)...
+2026-07-07 20:32:10,490 | INFO     | tonediv.nlp.scorer | FinBERT pronto: device=cpu, label_order(neg,neu,pos)=(2, 0, 1)
+2026-07-07 20:32:10,685 | INFO     | tonediv.nlp.scorer | Scoring: 307441 falas elegíveis de 408248 em 77 fatias de 4000 (checkpoint em data\interim\score_shards).
+2026-07-07 20:32:18,202 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/302 (0.3%)
+2026-07-07 20:39:05,089 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/302 (66.6%)
+2026-07-07 20:54:15,217 | INFO     | tonediv.nlp.scorer | Fatia 1/77 pontuada (4000 falas) e salva.
+2026-07-07 20:54:22,121 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/288 (0.3%)
+2026-07-07 21:00:20,026 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/288 (69.8%)
+2026-07-07 21:12:22,414 | INFO     | tonediv.nlp.scorer | Fatia 2/77 pontuada (4000 falas) e salva.
+2026-07-07 21:12:29,870 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/286 (0.3%)
+2026-07-07 21:19:01,377 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/286 (70.3%)
+2026-07-07 21:30:07,439 | INFO     | tonediv.nlp.scorer | Fatia 3/77 pontuada (4000 falas) e salva.
+2026-07-07 21:30:15,881 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/313 (0.3%)
+2026-07-07 21:37:07,249 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/313 (64.2%)
+2026-07-07 21:53:39,493 | INFO     | tonediv.nlp.scorer | Fatia 4/77 pontuada (4000 falas) e salva.
+2026-07-07 21:53:56,164 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/291 (0.3%)
+2026-07-07 22:00:59,197 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/291 (69.1%)
+2026-07-07 22:14:48,901 | INFO     | tonediv.nlp.scorer | Fatia 5/77 pontuada (4000 falas) e salva.
+2026-07-07 22:14:56,977 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/298 (0.3%)
+2026-07-07 22:21:35,150 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/298 (67.4%)
+2026-07-07 22:35:09,724 | INFO     | tonediv.nlp.scorer | Fatia 6/77 pontuada (4000 falas) e salva.
+2026-07-07 22:35:19,896 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/302 (0.3%)
+2026-07-07 22:41:18,268 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/302 (66.6%)
+2026-07-07 22:55:31,071 | INFO     | tonediv.nlp.scorer | Fatia 7/77 pontuada (4000 falas) e salva.
+2026-07-07 22:55:38,224 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/293 (0.3%)
+2026-07-07 23:00:29,295 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/293 (68.6%)
+2026-07-07 23:12:48,569 | INFO     | tonediv.nlp.scorer | Fatia 8/77 pontuada (4000 falas) e salva.
+2026-07-07 23:13:03,857 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/294 (0.3%)
+2026-07-07 23:18:48,532 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/294 (68.4%)
+2026-07-07 23:31:01,097 | INFO     | tonediv.nlp.scorer | Fatia 9/77 pontuada (4000 falas) e salva.
+2026-07-07 23:31:11,176 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/285 (0.4%)
+2026-07-07 23:36:05,449 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/285 (70.5%)
+2026-07-07 23:51:54,469 | INFO     | tonediv.nlp.scorer | Fatia 10/77 pontuada (4000 falas) e salva.
+2026-07-07 23:52:02,631 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/299 (0.3%)
+2026-07-07 23:57:20,989 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/299 (67.2%)
+2026-07-08 00:08:23,777 | INFO     | tonediv.nlp.scorer | Fatia 11/77 pontuada (4000 falas) e salva.
+2026-07-08 00:08:30,204 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/302 (0.3%)
+2026-07-08 00:13:03,580 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/302 (66.6%)
+2026-07-08 00:24:12,546 | INFO     | tonediv.nlp.scorer | Fatia 12/77 pontuada (4000 falas) e salva.
+2026-07-08 00:24:17,857 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/280 (0.4%)
+2026-07-08 00:29:09,916 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/280 (71.8%)
+2026-07-08 00:37:21,804 | INFO     | tonediv.nlp.scorer | Fatia 13/77 pontuada (4000 falas) e salva.
+2026-07-08 00:37:26,224 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/274 (0.4%)
+2026-07-08 00:41:32,576 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/274 (73.4%)
+2026-07-08 00:48:25,620 | INFO     | tonediv.nlp.scorer | Fatia 14/77 pontuada (4000 falas) e salva.
+2026-07-08 00:48:31,422 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/293 (0.3%)
+2026-07-08 00:52:57,695 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/293 (68.6%)
+2026-07-08 01:03:04,056 | INFO     | tonediv.nlp.scorer | Fatia 15/77 pontuada (4000 falas) e salva.
+2026-07-08 01:03:10,197 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/299 (0.3%)
+2026-07-08 01:07:34,981 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/299 (67.2%)
+2026-07-08 01:18:42,632 | INFO     | tonediv.nlp.scorer | Fatia 16/77 pontuada (4000 falas) e salva.
+2026-07-08 01:18:47,921 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/279 (0.4%)
+2026-07-08 01:23:24,470 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/279 (72.0%)
+2026-07-08 01:31:34,582 | INFO     | tonediv.nlp.scorer | Fatia 17/77 pontuada (4000 falas) e salva.
+2026-07-08 01:31:41,110 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/303 (0.3%)
+2026-07-08 01:36:23,482 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/303 (66.3%)
+2026-07-08 01:47:55,930 | INFO     | tonediv.nlp.scorer | Fatia 18/77 pontuada (4000 falas) e salva.
+2026-07-08 01:48:00,786 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/280 (0.4%)
+2026-07-08 01:52:13,662 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/280 (71.8%)
+2026-07-08 02:00:29,350 | INFO     | tonediv.nlp.scorer | Fatia 19/77 pontuada (4000 falas) e salva.
+2026-07-08 02:00:35,625 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/304 (0.3%)
+2026-07-08 02:05:01,016 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/304 (66.1%)
+2026-07-08 02:16:17,781 | INFO     | tonediv.nlp.scorer | Fatia 20/77 pontuada (4000 falas) e salva.
+2026-07-08 02:16:22,164 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/274 (0.4%)
+2026-07-08 02:20:24,720 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/274 (73.4%)
+2026-07-08 02:27:16,880 | INFO     | tonediv.nlp.scorer | Fatia 21/77 pontuada (4000 falas) e salva.
+2026-07-08 02:27:21,765 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/276 (0.4%)
+2026-07-08 02:31:36,104 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/276 (72.8%)
+2026-07-08 02:39:21,162 | INFO     | tonediv.nlp.scorer | Fatia 22/77 pontuada (4000 falas) e salva.
+2026-07-08 02:39:25,595 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/274 (0.4%)
+2026-07-08 02:42:54,770 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/274 (73.4%)
+2026-07-08 02:49:45,298 | INFO     | tonediv.nlp.scorer | Fatia 23/77 pontuada (4000 falas) e salva.
+2026-07-08 02:49:50,965 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/287 (0.3%)
+2026-07-08 02:54:38,686 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/287 (70.0%)
+2026-07-08 03:04:05,539 | INFO     | tonediv.nlp.scorer | Fatia 24/77 pontuada (4000 falas) e salva.
+2026-07-08 03:04:10,356 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/272 (0.4%)
+2026-07-08 03:08:33,362 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/272 (73.9%)
+2026-07-08 03:15:23,624 | INFO     | tonediv.nlp.scorer | Fatia 25/77 pontuada (4000 falas) e salva.
+2026-07-08 03:15:27,724 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/277 (0.4%)
+2026-07-08 03:18:30,781 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/277 (72.6%)
+2026-07-08 03:25:21,545 | INFO     | tonediv.nlp.scorer | Fatia 26/77 pontuada (4000 falas) e salva.
+2026-07-08 03:25:25,878 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/274 (0.4%)
+2026-07-08 03:28:55,483 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/274 (73.4%)
+2026-07-08 03:36:01,881 | INFO     | tonediv.nlp.scorer | Fatia 27/77 pontuada (4000 falas) e salva.
+2026-07-08 03:36:06,032 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/271 (0.4%)
+2026-07-08 03:39:40,769 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/271 (74.2%)
+2026-07-08 03:46:05,450 | INFO     | tonediv.nlp.scorer | Fatia 28/77 pontuada (4000 falas) e salva.
+2026-07-08 03:46:08,931 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/262 (0.4%)
+2026-07-08 03:49:25,909 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/262 (76.7%)
+2026-07-08 03:54:16,842 | INFO     | tonediv.nlp.scorer | Fatia 29/77 pontuada (4000 falas) e salva.
+2026-07-08 03:54:20,990 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/270 (0.4%)
+2026-07-08 03:57:52,190 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/270 (74.4%)
+2026-07-08 04:04:24,198 | INFO     | tonediv.nlp.scorer | Fatia 30/77 pontuada (4000 falas) e salva.
+2026-07-08 04:04:28,429 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/269 (0.4%)
+2026-07-08 04:08:17,654 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/269 (74.7%)
+2026-07-08 04:14:34,866 | INFO     | tonediv.nlp.scorer | Fatia 31/77 pontuada (4000 falas) e salva.
+2026-07-08 04:14:39,299 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/277 (0.4%)
+2026-07-08 04:18:30,622 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/277 (72.6%)
+2026-07-08 04:26:05,644 | INFO     | tonediv.nlp.scorer | Fatia 32/77 pontuada (4000 falas) e salva.
+2026-07-08 04:26:09,672 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/272 (0.4%)
+2026-07-08 04:29:36,942 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/272 (73.9%)
+2026-07-08 04:36:23,071 | INFO     | tonediv.nlp.scorer | Fatia 33/77 pontuada (4000 falas) e salva.
+2026-07-08 04:36:27,073 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/266 (0.4%)
+2026-07-08 04:40:11,543 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/266 (75.6%)
+2026-07-08 04:46:02,281 | INFO     | tonediv.nlp.scorer | Fatia 34/77 pontuada (4000 falas) e salva.
+2026-07-08 04:46:05,906 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/263 (0.4%)
+2026-07-08 04:49:39,114 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/263 (76.4%)
+2026-07-08 04:54:57,048 | INFO     | tonediv.nlp.scorer | Fatia 35/77 pontuada (4000 falas) e salva.
+2026-07-08 04:55:02,965 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/295 (0.3%)
+2026-07-08 04:59:19,539 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/295 (68.1%)
+2026-07-08 05:10:09,606 | INFO     | tonediv.nlp.scorer | Fatia 36/77 pontuada (4000 falas) e salva.
+2026-07-08 05:10:13,870 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/272 (0.4%)
+2026-07-08 05:13:43,962 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/272 (73.9%)
+2026-07-08 05:20:14,758 | INFO     | tonediv.nlp.scorer | Fatia 37/77 pontuada (4000 falas) e salva.
+2026-07-08 05:20:20,526 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/298 (0.3%)
+2026-07-08 05:24:28,878 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/298 (67.4%)
+2026-07-08 05:35:21,979 | INFO     | tonediv.nlp.scorer | Fatia 38/77 pontuada (4000 falas) e salva.
+2026-07-08 05:35:28,896 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/311 (0.3%)
+2026-07-08 05:40:12,200 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/311 (64.6%)
+2026-07-08 05:53:15,696 | INFO     | tonediv.nlp.scorer | Fatia 39/77 pontuada (4000 falas) e salva.
+2026-07-08 05:53:21,356 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/291 (0.3%)
+2026-07-08 05:57:38,831 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/291 (69.1%)
+2026-07-08 06:07:26,034 | INFO     | tonediv.nlp.scorer | Fatia 40/77 pontuada (4000 falas) e salva.
+2026-07-08 06:07:32,337 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/294 (0.3%)
+2026-07-08 06:13:04,419 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/294 (68.4%)
+2026-07-08 06:24:04,361 | INFO     | tonediv.nlp.scorer | Fatia 41/77 pontuada (4000 falas) e salva.
+2026-07-08 06:24:08,562 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/273 (0.4%)
+2026-07-08 06:27:44,974 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/273 (73.6%)
+2026-07-08 06:34:37,289 | INFO     | tonediv.nlp.scorer | Fatia 42/77 pontuada (4000 falas) e salva.
+2026-07-08 06:34:41,256 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/270 (0.4%)
+2026-07-08 06:38:04,545 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/270 (74.4%)
+2026-07-08 06:44:07,562 | INFO     | tonediv.nlp.scorer | Fatia 43/77 pontuada (4000 falas) e salva.
+2026-07-08 06:44:12,828 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/288 (0.3%)
+2026-07-08 06:48:10,516 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/288 (69.8%)
+2026-07-08 06:57:12,358 | INFO     | tonediv.nlp.scorer | Fatia 44/77 pontuada (4000 falas) e salva.
+2026-07-08 06:57:18,372 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/301 (0.3%)
+2026-07-08 07:01:26,083 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/301 (66.8%)
+2026-07-08 07:12:49,063 | INFO     | tonediv.nlp.scorer | Fatia 45/77 pontuada (4000 falas) e salva.
+2026-07-08 07:12:54,096 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/280 (0.4%)
+2026-07-08 07:16:57,778 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/280 (71.8%)
+2026-07-08 07:25:09,128 | INFO     | tonediv.nlp.scorer | Fatia 46/77 pontuada (4000 falas) e salva.
+2026-07-08 07:25:14,143 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/280 (0.4%)
+2026-07-08 07:29:38,164 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/280 (71.8%)
+2026-07-08 07:37:55,020 | INFO     | tonediv.nlp.scorer | Fatia 47/77 pontuada (4000 falas) e salva.
+2026-07-08 07:37:59,745 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/273 (0.4%)
+2026-07-08 07:42:13,944 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/273 (73.6%)
+2026-07-08 07:49:14,156 | INFO     | tonediv.nlp.scorer | Fatia 48/77 pontuada (4000 falas) e salva.
+2026-07-08 07:49:19,369 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/288 (0.3%)
+2026-07-08 07:53:08,293 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/288 (69.8%)
+2026-07-08 08:02:27,532 | INFO     | tonediv.nlp.scorer | Fatia 49/77 pontuada (4000 falas) e salva.
+2026-07-08 08:02:32,198 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/281 (0.4%)
+2026-07-08 08:05:59,172 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/281 (71.5%)
+2026-07-08 08:13:51,115 | INFO     | tonediv.nlp.scorer | Fatia 50/77 pontuada (4000 falas) e salva.
+2026-07-08 08:13:55,100 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/270 (0.4%)
+2026-07-08 08:17:26,671 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/270 (74.4%)
+2026-07-08 08:23:51,319 | INFO     | tonediv.nlp.scorer | Fatia 51/77 pontuada (4000 falas) e salva.
+2026-07-08 08:23:54,433 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/260 (0.4%)
+2026-07-08 08:27:16,246 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/260 (77.3%)
+2026-07-08 08:31:25,580 | INFO     | tonediv.nlp.scorer | Fatia 52/77 pontuada (4000 falas) e salva.
+2026-07-08 08:31:30,247 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/272 (0.4%)
+2026-07-08 08:35:25,204 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/272 (73.9%)
+2026-07-08 08:42:27,332 | INFO     | tonediv.nlp.scorer | Fatia 53/77 pontuada (4000 falas) e salva.
+2026-07-08 08:42:32,083 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/281 (0.4%)
+2026-07-08 08:46:20,105 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/281 (71.5%)
+2026-07-08 08:54:51,496 | INFO     | tonediv.nlp.scorer | Fatia 54/77 pontuada (4000 falas) e salva.
+2026-07-08 08:54:54,596 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/263 (0.4%)
+2026-07-08 08:57:48,555 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/263 (76.4%)
+2026-07-08 09:02:47,873 | INFO     | tonediv.nlp.scorer | Fatia 55/77 pontuada (4000 falas) e salva.
+2026-07-08 09:02:52,912 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/282 (0.4%)
+2026-07-08 09:07:11,593 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/282 (71.3%)
+2026-07-08 09:15:36,318 | INFO     | tonediv.nlp.scorer | Fatia 56/77 pontuada (4000 falas) e salva.
+2026-07-08 09:15:41,043 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/281 (0.4%)
+2026-07-08 09:19:17,163 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/281 (71.5%)
+2026-07-08 09:27:09,534 | INFO     | tonediv.nlp.scorer | Fatia 57/77 pontuada (4000 falas) e salva.
+2026-07-08 09:27:13,508 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/264 (0.4%)
+2026-07-08 09:31:15,108 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/264 (76.1%)
+2026-07-08 09:36:40,655 | INFO     | tonediv.nlp.scorer | Fatia 58/77 pontuada (4000 falas) e salva.
+2026-07-08 09:36:45,978 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/287 (0.3%)
+2026-07-08 09:40:32,544 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/287 (70.0%)
+2026-07-08 09:49:20,541 | INFO     | tonediv.nlp.scorer | Fatia 59/77 pontuada (4000 falas) e salva.
+2026-07-08 09:49:24,385 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/266 (0.4%)
+2026-07-08 09:52:57,607 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/266 (75.6%)
+2026-07-08 09:58:40,675 | INFO     | tonediv.nlp.scorer | Fatia 60/77 pontuada (4000 falas) e salva.
+2026-07-08 09:58:44,832 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/267 (0.4%)
+2026-07-08 10:02:23,783 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/267 (75.3%)
+2026-07-08 10:07:53,881 | INFO     | tonediv.nlp.scorer | Fatia 61/77 pontuada (4000 falas) e salva.
+2026-07-08 10:07:58,614 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/285 (0.4%)
+2026-07-08 10:11:18,671 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/285 (70.5%)
+2026-07-08 10:19:42,081 | INFO     | tonediv.nlp.scorer | Fatia 62/77 pontuada (4000 falas) e salva.
+2026-07-08 10:19:49,134 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/316 (0.3%)
+2026-07-08 10:24:32,682 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/316 (63.6%)
+2026-07-08 10:38:14,942 | INFO     | tonediv.nlp.scorer | Fatia 63/77 pontuada (4000 falas) e salva.
+2026-07-08 10:38:19,650 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/270 (0.4%)
+2026-07-08 10:42:34,948 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/270 (74.4%)
+2026-07-08 10:49:28,426 | INFO     | tonediv.nlp.scorer | Fatia 64/77 pontuada (4000 falas) e salva.
+2026-07-08 10:49:32,279 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/266 (0.4%)
+2026-07-08 10:52:50,299 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/266 (75.6%)
+2026-07-08 10:58:25,566 | INFO     | tonediv.nlp.scorer | Fatia 65/77 pontuada (4000 falas) e salva.
+2026-07-08 10:58:29,549 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/273 (0.4%)
+2026-07-08 11:01:32,807 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/273 (73.6%)
+2026-07-08 11:07:56,940 | INFO     | tonediv.nlp.scorer | Fatia 66/77 pontuada (4000 falas) e salva.
+2026-07-08 11:08:01,317 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/282 (0.4%)
+2026-07-08 11:11:26,645 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/282 (71.3%)
+2026-07-08 11:19:28,942 | INFO     | tonediv.nlp.scorer | Fatia 67/77 pontuada (4000 falas) e salva.
+2026-07-08 11:19:32,306 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/263 (0.4%)
+2026-07-08 11:22:35,096 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/263 (76.4%)
+2026-07-08 11:27:53,049 | INFO     | tonediv.nlp.scorer | Fatia 68/77 pontuada (4000 falas) e salva.
+2026-07-08 11:27:57,935 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/283 (0.4%)
+2026-07-08 11:32:05,334 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/283 (71.0%)
+2026-07-08 11:40:30,061 | INFO     | tonediv.nlp.scorer | Fatia 69/77 pontuada (4000 falas) e salva.
+2026-07-08 11:40:34,297 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/275 (0.4%)
+2026-07-08 11:44:00,819 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/275 (73.1%)
+2026-07-08 11:50:52,064 | INFO     | tonediv.nlp.scorer | Fatia 70/77 pontuada (4000 falas) e salva.
+2026-07-08 11:50:56,414 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/282 (0.4%)
+2026-07-08 11:54:08,922 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/282 (71.3%)
+2026-07-08 12:02:10,225 | INFO     | tonediv.nlp.scorer | Fatia 71/77 pontuada (4000 falas) e salva.
+2026-07-08 12:02:15,046 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/286 (0.3%)
+2026-07-08 12:05:25,887 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/286 (70.3%)
+2026-07-08 12:13:49,445 | INFO     | tonediv.nlp.scorer | Fatia 72/77 pontuada (4000 falas) e salva.
+2026-07-08 12:13:54,545 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/289 (0.3%)
+2026-07-08 12:17:56,683 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/289 (69.6%)
+2026-07-08 12:27:28,972 | INFO     | tonediv.nlp.scorer | Fatia 73/77 pontuada (4000 falas) e salva.
+2026-07-08 12:27:32,812 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/269 (0.4%)
+2026-07-08 12:30:56,647 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/269 (74.7%)
+2026-07-08 12:36:53,967 | INFO     | tonediv.nlp.scorer | Fatia 74/77 pontuada (4000 falas) e salva.
+2026-07-08 12:36:58,294 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/280 (0.4%)
+2026-07-08 12:39:46,746 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/280 (71.8%)
+2026-07-08 12:47:09,147 | INFO     | tonediv.nlp.scorer | Fatia 75/77 pontuada (4000 falas) e salva.
+2026-07-08 12:47:15,159 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/297 (0.3%)
+2026-07-08 12:51:34,052 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/297 (67.7%)
+2026-07-08 13:02:08,589 | INFO     | tonediv.nlp.scorer | Fatia 76/77 pontuada (4000 falas) e salva.
+2026-07-08 13:02:12,654 | INFO     | tonediv.nlp.scorer | Scoring: lote 1/241 (0.4%)
+2026-07-08 13:07:10,059 | INFO     | tonediv.nlp.scorer | Scoring: lote 201/241 (83.4%)
+2026-07-08 13:12:14,492 | INFO     | tonediv.nlp.scorer | Fatia 77/77 pontuada (3441 falas) e salva.
+[03] falas pontuadas=307441 | device=cpu | chunks médios/fala=1.13 | net_tone médio por papel={'analyst': 0.0996, 'management': 0.3274}

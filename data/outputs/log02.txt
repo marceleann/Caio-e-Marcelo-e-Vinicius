@@ -1,0 +1,2 @@
+2026-07-04 21:41:16,521 | INFO     | tonediv.nlp.roles | Papéis inferidos: 408248 falas ({'management': 204476, 'analyst': 132655, 'operator': 70963, 'unknown': 154}).
+[02] calls=5452 | Q&A detectado=80.0% | falas classificadas=100.0% | gestão=204476 analista=132655 | amostra manual: 328 linhas

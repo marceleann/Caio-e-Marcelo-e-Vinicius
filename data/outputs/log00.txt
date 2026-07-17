@@ -1,0 +1,2 @@
+2026-07-04 21:26:58,894 | INFO     | tonediv.data.diagnostics | Histograma de horários salvo em data\outputs\hour_histogram.png
+[00] anos=21 | empresas universo=116 | deslistadas ausentes=32/37 | relatório: docs/quality_report.md

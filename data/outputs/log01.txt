@@ -1,0 +1,122 @@
+2026-07-04 21:16:30,016 | INFO     | datasets | PyTorch version 2.5.1 available.
+2026-07-04 21:16:33,440 | INFO     | tonediv.data.transcripts | Baixando transcrições de kurry/sp500_earnings_transcripts [train]...
+2026-07-04 21:18:32,851 | INFO     | tonediv.data.transcripts | Transcrições brutas: 33362 linhas, colunas=['symbol', 'quarter', 'year', 'date', 'content', 'structured_content', 'company_name', 'company_id']
+2026-07-04 21:19:05,524 | INFO     | tonediv.data.universe | Rede programática: 507 setores do cache.
+2026-07-04 21:19:05,566 | INFO     | tonediv.data.universe | Rede programática: consultando setor de 74 tickers...
+2026-07-04 21:19:21,065 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: AMBC"}}}
+2026-07-04 21:19:29,751 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ATGE"}}}
+2026-07-04 21:19:51,865 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: CMA"}}}
+2026-07-04 21:20:03,476 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: DAY"}}}
+2026-07-04 21:20:15,014 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: DNB"}}}
+2026-07-04 21:20:37,130 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: HBI"}}}
+2026-07-04 21:20:40,189 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: HES"}}}
+2026-07-04 21:20:54,584 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: IPG"}}}
+2026-07-04 21:21:00,877 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: K"}}}
+2026-07-04 21:21:26,058 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ODP"}}}
+2026-07-04 21:21:29,246 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: PARA"}}}
+2026-07-04 21:21:37,928 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: PLL"}}}
+2026-07-04 21:21:52,486 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SEE"}}}
+2026-07-04 21:21:58,227 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SNV"}}}
+2026-07-04 21:22:01,293 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SRCL"}}}
+2026-07-04 21:22:04,470 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: TGNA"}}}
+2026-07-04 21:22:21,305 | ERROR    | yfinance | HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: WBA"}}}
+2026-07-04 21:22:40,740 | INFO     | tonediv.data.universe | Universo resolvido: 150 candidatos, 116 no dataset (núcleo=90, deslistados=37).
+2026-07-04 21:22:44,806 | INFO     | tonediv.data.transcripts | Qualidade: 5489 calls -> 5452 mantidas (27 curtas, 10 poucas falas).
+2026-07-04 21:22:44,833 | INFO     | tonediv.data.prices | Baixando preços de 119 tickers (2004-06-01 a 2025-12-31)...
+2026-07-04 21:22:55,288 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:22:55,288 | ERROR    | yfinance | ['ALTR']: YFRateLimitError('Too Many Requests. Rate limited. Try after a while.')
+2026-07-04 21:22:58,839 | ERROR    | yfinance | $ALTR: possibly delisted; no timezone found
+2026-07-04 21:22:58,840 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:22:58,840 | ERROR    | yfinance | ['ALTR']: possibly delisted; no timezone found
+2026-07-04 21:23:01,811 | ERROR    | yfinance | $ALTR: possibly delisted; no timezone found
+2026-07-04 21:23:01,811 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:01,813 | ERROR    | yfinance | ['ALTR']: possibly delisted; no timezone found
+2026-07-04 21:23:07,644 | ERROR    | yfinance | $ANSS: possibly delisted; no timezone found
+2026-07-04 21:23:07,646 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:07,646 | ERROR    | yfinance | ['ANSS']: possibly delisted; no timezone found
+2026-07-04 21:23:09,656 | ERROR    | yfinance | $ANSS: possibly delisted; no timezone found
+2026-07-04 21:23:09,656 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:09,656 | ERROR    | yfinance | ['ANSS']: possibly delisted; no timezone found
+2026-07-04 21:23:11,667 | ERROR    | yfinance | $ANSS: possibly delisted; no timezone found
+2026-07-04 21:23:11,670 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:11,670 | ERROR    | yfinance | ['ANSS']: possibly delisted; no timezone found
+2026-07-04 21:23:15,373 | ERROR    | yfinance | $ATVI: possibly delisted; no timezone found
+2026-07-04 21:23:15,373 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:15,373 | ERROR    | yfinance | ['ATVI']: possibly delisted; no timezone found
+2026-07-04 21:23:17,384 | ERROR    | yfinance | $ATVI: possibly delisted; no timezone found
+2026-07-04 21:23:17,386 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:17,386 | ERROR    | yfinance | ['ATVI']: possibly delisted; no timezone found
+2026-07-04 21:23:19,408 | ERROR    | yfinance | $ATVI: possibly delisted; no timezone found
+2026-07-04 21:23:19,408 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:23:19,408 | ERROR    | yfinance | ['ATVI']: possibly delisted; no timezone found
+2026-07-04 21:24:10,922 | ERROR    | yfinance | $JNPR: possibly delisted; no timezone found
+2026-07-04 21:24:10,922 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:10,922 | ERROR    | yfinance | ['JNPR']: possibly delisted; no timezone found
+2026-07-04 21:24:12,935 | ERROR    | yfinance | $JNPR: possibly delisted; no timezone found
+2026-07-04 21:24:12,935 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:12,935 | ERROR    | yfinance | ['JNPR']: possibly delisted; no timezone found
+2026-07-04 21:24:14,947 | ERROR    | yfinance | $JNPR: possibly delisted; no timezone found
+2026-07-04 21:24:14,947 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:14,947 | ERROR    | yfinance | ['JNPR']: possibly delisted; no timezone found
+2026-07-04 21:24:22,799 | ERROR    | yfinance | $LSI: possibly delisted; no timezone found
+2026-07-04 21:24:22,799 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:22,799 | ERROR    | yfinance | ['LSI']: possibly delisted; no timezone found
+2026-07-04 21:24:24,811 | ERROR    | yfinance | $LSI: possibly delisted; no timezone found
+2026-07-04 21:24:24,811 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:24,811 | ERROR    | yfinance | ['LSI']: possibly delisted; no timezone found
+2026-07-04 21:24:26,828 | ERROR    | yfinance | $LSI: possibly delisted; no timezone found
+2026-07-04 21:24:26,828 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:26,828 | ERROR    | yfinance | ['LSI']: possibly delisted; no timezone found
+2026-07-04 21:24:38,112 | ERROR    | yfinance | $MXIM: possibly delisted; no timezone found
+2026-07-04 21:24:38,112 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:38,112 | ERROR    | yfinance | ['MXIM']: possibly delisted; no timezone found
+2026-07-04 21:24:40,127 | ERROR    | yfinance | $MXIM: possibly delisted; no timezone found
+2026-07-04 21:24:40,130 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:40,130 | ERROR    | yfinance | ['MXIM']: possibly delisted; no timezone found
+2026-07-04 21:24:42,138 | ERROR    | yfinance | $MXIM: possibly delisted; no timezone found
+2026-07-04 21:24:42,138 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:24:42,138 | ERROR    | yfinance | ['MXIM']: possibly delisted; no timezone found
+2026-07-04 21:25:11,737 | ERROR    | yfinance | $TWTR: possibly delisted; no timezone found
+2026-07-04 21:25:11,737 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:11,737 | ERROR    | yfinance | ['TWTR']: possibly delisted; no timezone found
+2026-07-04 21:25:13,753 | ERROR    | yfinance | $TWTR: possibly delisted; no timezone found
+2026-07-04 21:25:13,755 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:13,755 | ERROR    | yfinance | ['TWTR']: possibly delisted; no timezone found
+2026-07-04 21:25:15,765 | ERROR    | yfinance | $TWTR: possibly delisted; no timezone found
+2026-07-04 21:25:15,765 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:15,765 | ERROR    | yfinance | ['TWTR']: possibly delisted; no timezone found
+2026-07-04 21:25:28,537 | ERROR    | yfinance | $XLNX: possibly delisted; no timezone found
+2026-07-04 21:25:28,537 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:28,537 | ERROR    | yfinance | ['XLNX']: possibly delisted; no timezone found
+2026-07-04 21:25:30,551 | ERROR    | yfinance | $XLNX: possibly delisted; no timezone found
+2026-07-04 21:25:30,555 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:30,555 | ERROR    | yfinance | ['XLNX']: possibly delisted; no timezone found
+2026-07-04 21:25:32,565 | ERROR    | yfinance | $XLNX: possibly delisted; no timezone found
+2026-07-04 21:25:32,565 | ERROR    | yfinance | 
+1 Failed download:
+2026-07-04 21:25:32,565 | ERROR    | yfinance | ['XLNX']: possibly delisted; no timezone found
+2026-07-04 21:25:39,339 | INFO     | tonediv.data.prices | Preços: 111 ok, 8 sem dados.
+[01] calls_all=33362 | universo(no dataset)=116 | calls_universo(qualidade ok)=5452 | falas=408248 | preços ok=111 falha=8

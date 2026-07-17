@@ -1,8 +1,16 @@
-# --- Dados gerados (não versionar; reproduzíveis pelo pipeline) ---
-data/raw/
-data/interim/
-data/processed/
-data/outputs/
+# --- Não versionados: pesados demais p/ GitHub (>100MB) ou com restrição ---
+# companyfacts.zip (1,3GB): bulk XBRL da SEC; o extrato dele JÁ está versionado
+#   em data/raw/sp500/fundamentals_facts*.parquet. P/ refazer do zero:
+#   https://www.sec.gov/Archives/edgar/daily-index/xbrl/companyfacts.zip
+data/raw/companyfacts.zip
+# Dicionário Loughran-McDonald: licença Notre Dame não permite redistribuir.
+#   Baixar em https://sraf.nd.edu/loughranmcdonald-master-dictionary/ e salvar
+#   como data/raw/LM_MasterDictionary.csv (só é preciso p/ recomputar do zero;
+#   as contagens derivadas já estão em data/interim/sp500/speaker_counts.parquet)
+data/raw/LM_MasterDictionary.csv
+# Falas com texto integral do universo tech antigo (>100MB; regeneráveis)
+data/interim/utterances.parquet
+data/interim/utterances_roles.parquet
 
 # --- Python ---
 __pycache__/
