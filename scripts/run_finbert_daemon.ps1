@@ -1,4 +1,4 @@
-# =============================================================================
+﻿# =============================================================================
 # Daemon do scorer FinBERT — roda ATE A FILA ACABAR, com checkpoints duplos.
 # Registrado como tarefa agendada do Windows (logon): independe do Claude Code
 # e religa sozinho se o PC reiniciar. Aprovado pelo Marcelo em 17/07/2026.
@@ -42,3 +42,4 @@ while ($true) {
         break
     }
 }
+
