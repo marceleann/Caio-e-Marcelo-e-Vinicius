@@ -27,11 +27,11 @@ Add-Content $log "$(Get-Date -f s) daemon: iniciando laco."
 while ($true) {
     $before = (Get-ChildItem $shards -Filter "call_*.parquet" -ErrorAction SilentlyContinue).Count
     Add-Content $log "$(Get-Date -f s) ciclo: $before/33362 shards; rodando 6h..."
-    cmd /c "C:\Python314\python.exe scripts\sp500_score_finbert.py 6 >> `"$log`" 2>&1"
+    cmd /c "C:\Users\Marcelo\venv_qai\Scripts\python.exe scripts\sp500_score_finbert.py 6 >> `"$log`" 2>&1"
     $after = (Get-ChildItem $shards -Filter "call_*.parquet" -ErrorAction SilentlyContinue).Count
 
     # checkpoint remoto: TD_FinBERT atualizada + push
-    cmd /c "C:\Python314\python.exe scripts\sp500_td_finbert.py >> `"$log`" 2>&1"
+    cmd /c "C:\Users\Marcelo\venv_qai\Scripts\python.exe scripts\sp500_td_finbert.py >> `"$log`" 2>&1"
     git add data/interim/sentence_scores_shards data/interim/sp500/tone_distance_finbert.parquet 2>$null
     git commit -m "checkpoint FinBERT automatico: $after/33362 calls" 2>$null
     git push origin Projeto_Caio_Marcelo 2>$null
@@ -42,5 +42,6 @@ while ($true) {
         break
     }
 }
+
 
 
