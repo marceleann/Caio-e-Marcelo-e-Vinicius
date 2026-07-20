@@ -1,0 +1,48 @@
+==========================================================================================
+SUÍTE FINAL LM x FinBERT — mesma amostra (eventos escorados), specs do Angelo
+eventos escorados com CAR: 26889 | 2009+: 25227 | firmas: 582
+corr(td, td_fb)=+0.378 | corr(td_w, td_fb_w)=+0.380
+==========================================================================================
+
+----- CAR[-1,+1] ~ sinal + controles antigos(FF49) + FE | 2009+ -----
+CAR[-1,+1] ~ td                    n= 22912 | coef=  -0.0860 t= -0.70 p=0.486 | IQR->y=-0.037%
+CAR[-1,+1] ~ td_w                  n= 22912 | coef=  -0.4164 t= -2.91 p=0.004 | IQR->y=-0.157%
+CAR[-1,+1] ~ td_fb                 n= 22912 | coef=  +0.0008 t= +0.09 p=0.928 | IQR->y=+0.005%
+CAR[-1,+1] ~ td_fb_w               n= 22912 | coef=  -0.0187 t= -2.37 p=0.018 | IQR->y=-0.142%
+
+----- CAR[-1,+2] ~ sinal + controles antigos(FF49) + FE | 2009+ -----
+CAR[-1,+2] ~ td                    n= 22912 | coef=  -0.0753 t= -0.59 p=0.558 | IQR->y=-0.033%
+CAR[-1,+2] ~ td_w                  n= 22912 | coef=  -0.4048 t= -2.68 p=0.007 | IQR->y=-0.152%
+CAR[-1,+2] ~ td_fb                 n= 22912 | coef=  -0.0021 t= -0.24 p=0.813 | IQR->y=-0.014%
+CAR[-1,+2] ~ td_fb_w               n= 22912 | coef=  -0.0197 t= -2.43 p=0.015 | IQR->y=-0.150%
+
+----- CAR[-1,+5] ~ sinal + controles antigos(FF49) + FE | 2009+ -----
+CAR[-1,+5] ~ td                    n= 22912 | coef=  -0.0438 t= -0.31 p=0.759 | IQR->y=-0.019%
+CAR[-1,+5] ~ td_w                  n= 22912 | coef=  -0.3871 t= -2.31 p=0.021 | IQR->y=-0.146%
+CAR[-1,+5] ~ td_fb                 n= 22912 | coef=  -0.0045 t= -0.47 p=0.638 | IQR->y=-0.031%
+CAR[-1,+5] ~ td_fb_w               n= 22912 | coef=  -0.0207 t= -2.46 p=0.014 | IQR->y=-0.158%
+
+----- vol 20d ~ sinal + controles antigos(FF49) + FE | 2009+ -----
+vol 20d ~ td                       n= 22922 | coef=  +0.0118 t= +0.87 p=0.385 | IQR->y=+0.005%
+vol 20d ~ td_w                     n= 22922 | coef=  +0.0296 t= +1.76 p=0.079 | IQR->y=+0.011%
+vol 20d ~ td_fb                    n= 22922 | coef=  -0.0007 t= -0.64 p=0.520 | IQR->y=-0.005%
+vol 20d ~ td_fb_w                  n= 22922 | coef=  -0.0001 t= -0.10 p=0.921 | IQR->y=-0.001%
+
+----- vol 120d ~ sinal + controles antigos(FF49) + FE | 2009+ -----
+vol 120d ~ td                      n= 22922 | coef=  +0.0064 t= +0.54 p=0.589 | IQR->y=+0.003%
+vol 120d ~ td_w                    n= 22922 | coef=  +0.0358 t= +2.49 p=0.013 | IQR->y=+0.013%
+vol 120d ~ td_fb                   n= 22922 | coef=  -0.0002 t= -0.24 p=0.812 | IQR->y=-0.002%
+vol 120d ~ td_fb_w                 n= 22922 | coef=  +0.0003 t= +0.31 p=0.758 | IQR->y=+0.002%
+
+==========================================================================================
+TABELA 6 — retorno mensal 3m pós-anúncio (FE firma+ano-mês, cluster ano-mês)
+T6 col1 só FE   ~ td       n= 76791 | coef= +0.0983 t= +1.25 p=0.212
+T6 col2         ~ td       n= 66540 | coef= +0.1509 t= +1.85 p=0.064
+T6 col1 só FE   ~ td_w     n= 76791 | coef= +0.1629 t= +1.65 p=0.099
+T6 col2         ~ td_w     n= 66540 | coef= +0.2081 t= +2.13 p=0.033
+T6 col1 só FE   ~ td_fb    n= 76791 | coef= +0.0055 t= +0.97 p=0.333
+T6 col2         ~ td_fb    n= 66540 | coef= +0.0104 t= +1.77 p=0.077
+T6 col1 só FE   ~ td_fb_w  n= 76791 | coef= +0.0092 t= +1.64 p=0.102
+T6 col2         ~ td_fb_w  n= 66540 | coef= +0.0102 t= +1.76 p=0.079
+
+DONE.
