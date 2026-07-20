@@ -108,12 +108,14 @@ def main():
     base = ["disclosure_tone", "analyst_tone", "analyst_tone_distance",
             "length", "ln_mktcap", "lagged_td", "sue_pct"]  # industry_tone fora: em reconstrução FF49
     elig = set(evp.dropna(subset=["car_m1p1"] + base)["call_id"])
-    calls["_pri"] = (~calls["call_id"].isin(elig)).astype(int)   # 0 = elegível primeiro
+    calls["_pri"] = (~calls["call_id"].isin(elig)).astype(int)   # 0 = elegível
+    # decisão do Marcelo (19/07): pontuar SÓ as elegíveis — as ~6,4k não
+    # elegíveis (deslistadas sem preço/SUE etc.) não entram em regressão alguma
+    calls = calls[calls["_pri"] == 0]
     calls = calls.sort_values("_pri", kind="stable").reset_index(drop=True)
     todo_mask = ~calls["call_id"].isin(done)
     calls = calls[todo_mask].reset_index(drop=True)
-    log.info("calls: %d já pontuadas | %d a fazer (%d elegíveis primeiro)",
-             len(done), len(calls), int((calls['_pri'] == 0).sum()))
+    log.info("calls: %d já pontuadas | %d elegíveis a fazer", len(done), len(calls))
 
     def measure(text): return len(tok.encode(text, add_special_tokens=True))
 

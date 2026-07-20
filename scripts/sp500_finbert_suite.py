@@ -70,9 +70,9 @@ def demean_two_way(df, cols, f1, f2, tol=1e-10, max_iter=50):
 
 def main():
     ev = pd.read_parquet(OUTDIR / "events_sp500_car3.parquet")
-    # industry FF49 vem do arquivo paper (mesmos call_id)
-    evp = pd.read_parquet(OUTDIR / "events_sp500_paper.parquet")[["call_id", "industry_tone_ff49"]]
-    ev = ev.merge(evp, on="call_id", how="left")
+    if "industry_tone_ff49" not in ev.columns:   # ff49.py grava nos 2 arquivos
+        evp = pd.read_parquet(OUTDIR / "events_sp500_paper.parquet")[["call_id", "industry_tone_ff49"]]
+        ev = ev.merge(evp, on="call_id", how="left")
     ev = ev.merge(pd.read_parquet(OUTDIR / "td_variants.parquet")[["call_id", "td_w"]],
                   on="call_id", how="left")
     fb = pd.read_parquet(OUTDIR / "tone_distance_finbert.parquet")
