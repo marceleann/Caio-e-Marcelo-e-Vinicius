@@ -151,6 +151,36 @@ completar (ou com prefixo grande), montar TD_FinBERT e rodar toda a suíte.
   esperada (léxico vs modelo) e é exatamente o que torna o braço FinBERT um
   teste informativo, não redundante.
 
+## 5c. Adendo (20/07) — a ambiguidade do centroide (desconfiança do Marcelo)
+
+O Marcelo insistiu que a TD base nula podia ser erro de mensuração. Auditoria:
+(i) aplicação da fórmula EXONERADA — exemplo manual (AAPL 2020Q4) e
+reimplementação independente nas 32.387 calls, diferença máxima 8e-17;
+(ii) MAS a frase da Eq.(1) ("Avg.Pos = average percent positive words spoken
+across all managers") admite duas leituras: A = média simples das frações por
+gestor (nossa original); B = fração AGREGADA dos gestores (total pos/total
+palavras) — e o rótulo da Figura 1 do paper ("Average Transcript Tone")
+sugere B. Na leitura A, um orador marginal (ex.: RI lendo o disclaimer
+jurídico, 283 palavras, 6 "negativas" de boilerplate — caso real da AAPL
+2020Q4) desloca o centro; na B, o centro é o tom de quem efetivamente fala.
+
+**Resultado (Eq.3, controles antigos+FF49, 2009+, n~23,6k): a leitura B
+REVIVE a TD base nos dois sensores** — LM: t=-1.98/-2.05/-1.73; FinBERT:
+t=-1.88/-2.29/-2.34 (IQR ~-0.11% a -0.14%). Cadeia monotônica completa:
+
+| espec | peso da fala | t LM | t FinBERT |
+|---|---|---|---|
+| leitura A (centro = média simples) | nenhum | -0.72 | +0.09 |
+| leitura B (centro = tom agregado) | no centro | -1.98 | -1.88 |
+| T8c1 (pondera centro E distâncias) | total | -2.83 | -2.37 |
+
+Conclusão revisada: a Eq.(1) do Angelo REPLICA em large caps sob a leitura B
+do centroide (defensável pelo próprio paper), e fortalece monotonicamente com
+mais peso de fala. O nulo da leitura A tem diagnóstico preciso: centro
+contaminado por oradores marginais (boilerplate de RI conta como tom negativo
+no LM). Scripts: `diag_equalweight_null.py`, `sp500_poolcent.py`; dados:
+`td_poolcent.parquet`.
+
 ## 6. Arquivos novos desta rodada
 
 `sp500_speaker_counts.py`, `sp500_fund_v2.py`, `sp500_paper_suite.py`,
