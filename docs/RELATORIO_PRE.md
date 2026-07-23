@@ -144,15 +144,29 @@ perna; amostra completa 2006–2025 sem seleção de período; benchmark S&P 500
 0,18; t=0,8); TD ponderada +0,3% (Sharpe 0,05); versão relativa ao histórico
 da própria empresa +0,6% (Sharpe 0,07). Mercado no período: Sharpe 0,53.
 
-**Leitura honesta:** o prêmio documentado no painel é identificado *dentro*
-da empresa (com efeitos fixos e controles) e é pequeno; carteiras de quintil
-incondicionais não o capturam em large caps líquidas — resultado coerente
-com a expectativa que registramos antes de rodar. O valor do sinal está em
-(i) informação de risco pós-anúncio e (ii) inclinação (*tilt*) condicional
-em combinação com outros fatores, não em long-short isolado. A fronteira
-para monetização, e nosso próximo passo, é o universo de small/mid caps,
-onde o artigo indica efeito mais forte (nota 6: o efeito cresce em firmas
-menos complexas) e onde os custos de atenção do mercado são maiores.
+**Leitura honesta e a estratégia proposta.** O prêmio documentado no painel
+é identificado *dentro* da empresa (com efeitos fixos e controles) e é
+pequeno; o quintil incondicional acima funciona como **teste de estresse da
+implementação ingênua** — e o resultado (fraco, como registramos que seria)
+diz que o sinal não é um long-short isolado em mega caps. A estratégia CORO
+que propomos usa o sinal onde a evidência o sustenta, em duas pernas:
+
+- **Perna de retorno (tilt de evento):** após cada call, o escore de
+  divergência da empresa é comparado ao histórico dela mesma (percentil
+  estritamente passado — a forma como o efeito é identificado no painel);
+  empresas no topo recebem sobrepeso por ~3 meses dentro de uma carteira
+  base, capturando o prêmio de risco pós-anúncio (t = +2,1 e +1,8 nos dois
+  sensores; mesmo desenho da Tabela 6 do artigo).
+- **Perna de risco (overlay):** as mesmas empresas têm volatilidade futura
+  maior (t = +2,5); o escore entra como redutor de tamanho de posição no
+  curto prazo, transformando a previsão de risco em melhora de retorno
+  ajustado, mesmo onde o alpha bruto é modesto.
+
+Em large caps, o edge é estatisticamente comprovado e economicamente
+modesto — e é por isso que a expansão natural da estratégia é para
+small/mid caps, onde o próprio artigo documenta efeito mais forte (nota 6:
+cresce em firmas menos complexas) e onde a atenção do mercado é mais
+escassa. Essa expansão está em execução para a entrega final (ver §7).
 
 **Vieses tratados:** sem escolha oportunista de período (2005–2025 tudo);
 execução T+1 com carimbo de hora da call (27% das calls pós-fechamento
@@ -190,14 +204,18 @@ troca completa do medidor de tom (léxico → neural). A contribuição própria
 dupla: o diagnóstico de *como* medir (o peso de fala separa sinal de ruído em
 calls com muitos participantes) e a infraestrutura 100% replicável.
 
-**Próximos passos até a entrega final:**
-1. **Universo small/mid caps** (dataset Motley Fool/MAEC): onde o artigo
-   aponta efeito mais forte e onde esperamos que a monetização melhore;
-2. **Motor da estratégia**: sinal relativo ao histórico da própria empresa,
-   condicionado a regime e combinado a fatores de qualidade/momentum —
-   avaliado com Deflated Sharpe Ratio e contagem honesta de tentativas;
-3. **Overlay de risco**: dimensionamento de posição pelo canal H2;
-4. Robustez final: FF49 completa, custos sensibilizados, análise de decay.
+**Próximos passos até a entrega final (17/08), com data de corte interna:**
+1. **Universo small/mid caps** (dataset Motley Fool, ~centenas de milhares de
+   calls): replicar o pipeline LM completo e rodar **uma única especificação
+   pré-registrada** do tilt de evento (sinal relativo ao histórico próprio,
+   63 pregões, custos), declarada antes de ver qualquer resultado, avaliada
+   com Deflated Sharpe Ratio e contagem honesta de tentativas. Trilho isolado
+   do pipeline atual (scripts e dados separados); **corte em 10/08** — se a
+   validação de dados não estiver sólida até lá, a entrega final segue apenas
+   com o quadro atual, sem números pela metade;
+2. **Implementação do overlay de risco** (perna H2) na carteira base;
+3. Robustez final: sensibilidade a custos, análise de decay no tempo e
+   braço FinBERT no universo expandido (se o cronograma de máquina permitir).
 
 ## 8. Uso de IA Generativa no processo
 
