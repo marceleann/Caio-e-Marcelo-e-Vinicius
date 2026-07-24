@@ -134,20 +134,25 @@ momentum, tamanho e reversão): coeficiente positivo nos dois sensores (t =
 o mercado penaliza no anúncio e exige retorno maior depois. (Validação
 walk-forward desta camada: pendente — declarado.)
 
-**Validação temporal (a pirâmide completa).** Para cada hipótese, três
-níveis de teste fora da amostra cheia, todos reportados por inteiro:
+**Validação temporal (matriz completa: 3 tipos de teste × 3 hipóteses,
+todos os resultados reportados, inclusive os contrários).**
 
 | teste | H1 (CAR) | H2 (vol) | H3 (\|SUE\|) |
 |---|---|---|---|
-| walk-forward do β condicional (cortes anuais: passado→futuro concordam?) | 10/12 | **3/12** | 9/12 |
-| idem, cortes TRIMESTRAIS (48 momentos possíveis) | β passado negativo em 48/48; futuro confirma em 40/48 | — | — |
-| previsão por evento SEM controles (ordenar por TD e conferir à parte, 50 tri) | 42% de acerto | 58% | 35% |
+| 1. carteira / realização calendar-time | quintis L-S nulos (melhor Sharpe 0,22, t=0,99) | vol da cesta alta − baixa: +0,4 a +2pp sobre ~33% (sem valor prático); FinBERT invertida (−11pp) | cesta trimestral = teste 3 |
+| 2a. walk-forward anual do β condicional | 10/12 | **3/12** | 9/12 |
+| 2b. walk-forward TRIMESTRAL (48 momentos) — passado / futuro na direção da hipótese | 48/48 · **40/48** | 48/48 · **15/48** | 48/48 · 32/48 |
+| 3. previsão por evento sem controles (50 trimestres à parte) | 42% de acerto | 58% | 35% |
 
-Leitura: a relação **condicional** da H1 (com controles e efeitos fixos) é
-estável e antecipável em todos os momentos testados; a versão
-**incondicional** (ordenar empresas cruamente por TD) não prevê nada — o
-sinal existe, mas misturado a características de firma no corte cruzado.
-H2 e H3 não passam na validação temporal como ferramentas prospectivas.
+A linha 2b contém a lição central do trabalho: **nas três hipóteses, o β
+estimado com o passado aponta a direção "esperada" em 48 de 48 momentos —
+em amostra corrente, as três pareceriam confirmadas. Só o futuro as
+separa**: H1 é confirmada pelo futuro em 83% dos momentos; H2 é contrariada
+em 69% deles (canal extinto após ~2014); H3 fica em 67% sempre sem força
+(t<1). Se tivéssemos parado na estimação em amostra cheia, venderíamos três
+canais; a validação temporal mostra que apenas um é real — e apenas na
+forma condicional (a versão incondicional, ordenar empresas cruamente por
+TD, não prevê nada: o sinal existe misturado a características de firma).
 (Nota: cortes adjacentes compartilham dados; as contagens medem
 estabilidade, não testes independentes.)
 
