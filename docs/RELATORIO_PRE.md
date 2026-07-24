@@ -119,15 +119,20 @@ entre si em apenas 38% (correlação), produzem o mesmo quadro — o achado não
 temporal.** Na amostra completa, a TD ponderada associa-se a volatilidade
 futura (t = +2,5 no sensor LM; nada no FinBERT). Mas o teste walk-forward
 (estimar só com o passado em cada corte anual e conferir no futuro não
-visto) reprova o canal: o β futuro zera a partir de 2015 e fica negativo nos
-recortes recentes — concordância de sinal em só 3 de 12 cortes. Fizemos uma
-rodada final pré-comprometida corrigindo a especificação na direção que
-favorecia a hipótese (log-vol, padrão da literatura, nos dois horizontes 20
-e 120 dias): o resultado piorou — no horizonte de 120 dias, o β futuro foi
-positivo em 0 de 48 momentos, com o β passado positivo em 48 de 48.
-Conclusão: o poder preditivo de risco existiu no eco da crise (2009–2014) e
-se extinguiu; a H2 é o nosso caso-testemunha de miragem de amostra cheia, e
-não a utilizamos como ferramenta prospectiva.
+visto) reprova o canal na nossa especificação; a investigação (auditoria da
+variável com recomputação independente — idêntica a 6 casas decimais — e
+decomposição de janelas) localizou a origem da divergência com o artigo:
+**a janela**. O artigo mede a vol a partir do dia +1 (ainda dentro da
+ressaca do anúncio); nós, do +2 (fora dela). Com a janela do artigo, a H2
+replica em amostra cheia (t=+2,1); com a janela limpa, não existe (t=+1,3);
+e a diferença é o **eco mecânico do próprio anúncio** — empresas de TD alta
+têm reação maior (a H1), e janelas que encostam no evento herdam essa
+turbulência. Prospectivamente, nem a janela do artigo sustenta
+(walk-forward: futuro na direção esperada em 28/48 momentos; previsão
+condicional t=+1,0) — e a versão limpa falha por completo (0/48 no
+horizonte longo). Caracterização final: o "canal de risco" é sobretudo o
+prolongamento da reação ao anúncio, já contado na H1; risco de médio prazo
+genuinamente preditivo não existe nos nossos dados, e não o utilizamos.
 
 **H3 — operacional.** O valor absoluto da surpresa de lucro seguinte aumenta
 com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
