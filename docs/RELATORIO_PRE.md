@@ -140,9 +140,15 @@ sinal contra os 90 dias anteriores; quintis extremos (long TD alta / short TD
 baixa — direção fixada a priori pelo artigo); custos de 5 pontos-base por
 perna; amostra completa 2006–2025 sem seleção de período; benchmark S&P 500.
 
-**Resultados líquidos** (long-short anualizado): TD crua +2,0% a.a. (Sharpe
-0,18; t=0,8); TD ponderada +0,3% (Sharpe 0,05); versão relativa ao histórico
-da própria empresa +0,6% (Sharpe 0,07). Mercado no período: Sharpe 0,53.
+**Resultados líquidos** (long-short anualizado, todas as construções do
+sinal sob a mesma especificação; 6 tentativas contadas para o Deflated
+Sharpe): leitura A +2,0% a.a. (Sharpe 0,18); **leitura B +2,4% (Sharpe 0,22,
+o melhor — e ainda assim t(Sharpe)=0,99, não significativo)**; ponderada
++0,3% (0,05); FinBERT ponderada +4,4% (0,17) — com a ressalva de que o
+diagnóstico de pernas mostra correlação de só 0,6 entre long e short: o
+quintil alto de FinBERT embute aposta em ações de baixa volatilidade, um
+fator, não tom; histórico próprio +0,6% (0,07). Mercado no período: Sharpe
+0,53. Nenhuma construção monetiza em quintis.
 
 **Leitura honesta e a estratégia proposta.** O prêmio documentado no painel
 é identificado *dentro* da empresa (com efeitos fixos e controles) e é
@@ -204,18 +210,25 @@ troca completa do medidor de tom (léxico → neural). A contribuição própria
 dupla: o diagnóstico de *como* medir (o peso de fala separa sinal de ruído em
 calls com muitos participantes) e a infraestrutura 100% replicável.
 
-**Próximos passos até a entrega final (17/08), com data de corte interna:**
-1. **Universo small/mid caps** (dataset Motley Fool, ~centenas de milhares de
-   calls): replicar o pipeline LM completo e rodar **uma única especificação
-   pré-registrada** do tilt de evento (sinal relativo ao histórico próprio,
-   63 pregões, custos), declarada antes de ver qualquer resultado, avaliada
-   com Deflated Sharpe Ratio e contagem honesta de tentativas. Trilho isolado
-   do pipeline atual (scripts e dados separados); **corte em 10/08** — se a
-   validação de dados não estiver sólida até lá, a entrega final segue apenas
-   com o quadro atual, sem números pela metade;
-2. **Implementação do overlay de risco** (perna H2) na carteira base;
-3. Robustez final: sensibilidade a custos, análise de decay no tempo e
-   braço FinBERT no universo expandido (se o cronograma de máquina permitir).
+**Sobre a expansão small/mid caps (teste já realizado, pré-registrado):**
+testamos a tese de expansão num universo de 2.250 firmas fora do S&P 500
+(dataset Motley Fool, 2019–2023), com hipóteses e especificações congeladas
+por pré-registro ANTES de qualquer resultado (docs/PREREG_MF.md, timestamp
+em git). O painel não confirmou a hipótese: coeficientes positivos e não
+significativos, com intervalo de confiança que contém tanto o efeito do S&P
+quanto zero (inconclusivo por potência: janela de 3,5 anos, metade em 2021,
+CAR 60% mais volátil, cobertura de preços de 69% com viés de sobrevivência).
+O diagnóstico de reconciliação isolou a causa: no MESMO período 2019–23, o
+efeito segue presente nas large caps (t=−1,96) — o problema é o universo ou
+a qualidade dos dados dele, não a época. A fronteira segue aberta e
+documentada; não a apresentamos como resultado.
+
+**Próximos passos até a entrega final (17/08):**
+1. **Implementação do overlay de risco** (perna H2) na carteira base e
+   desenho do tilt condicional fundamentado no painel da Tabela 6;
+2. Robustez final: sensibilidade a custos, análise de decay no tempo;
+3. Se houver tempo e dados melhores (preços de deslistadas), revisitar a
+   fronteira small/mid com o pré-registro já existente.
 
 ## 8. Uso de IA Generativa no processo
 
