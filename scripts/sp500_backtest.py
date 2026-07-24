@@ -99,6 +99,14 @@ def main():
     tv = OUTDIR / "td_variants.parquet"
     if tv.exists():   # td_w = TD ponderada por palavras (Tabela 8 col 1 do paper)
         ev = ev.merge(pd.read_parquet(tv)[["call_id", "td_w"]], on="call_id", how="left")
+    pc = OUTDIR / "td_poolcent.parquet"
+    if pc.exists():   # td_b = leitura B do centroide (a espec-base que replica H1)
+        ev = ev.merge(pd.read_parquet(pc)[["call_id", "td_poolcent"]]
+                        .rename(columns={"td_poolcent": "td_b"}),
+                      on="call_id", how="left")
+    fb = OUTDIR / "tone_distance_finbert.parquet"
+    if fb.exists():   # braço FinBERT (ponderada por tokens)
+        ev = ev.merge(pd.read_parquet(fb)[["call_id", "td_fb_w"]], on="call_id", how="left")
         # sinal FE-consistente: percentil do td_w CONTRA O PRÓPRIO HISTÓRICO da
         # firma (estritamente passado, mín. 6 calls). Racional: o efeito da
         # Tabela 6 é identificado COM FE de firma — é desvio do próprio nível,
@@ -125,7 +133,9 @@ def main():
         tick[t] = (g["date"].to_numpy("datetime64[ns]"), g["adj_close"].pct_change().to_numpy())
 
     for sigcol, lbl in [("td", "SINAL PRIMÁRIO: TD crua (como o Angelo)"),
+                        ("td_b", "TD leitura B (centro agregado — base que replica)"),
                         ("td_w", "TD PONDERADA por palavras (T8c1 do paper)"),
+                        ("td_fb_w", "FinBERT ponderada por tokens"),
                         ("td_w_own", "td_w vs PRÓPRIO histórico (FE-consistente)"),
                         ("z", "braço secundário (log p/ DSR): z")]:
         if sigcol not in ev.columns:
