@@ -115,12 +115,14 @@ igual-ponderada falha em large caps; (iii) os dois sensores, que concordam
 entre si em apenas 38% (correlação), produzem o mesmo quadro — o achado não
 é artefato do medidor de tom.
 
-**H2 — risco.** A TD ponderada prevê volatilidade realizada futura no sensor
-LM (t = +2,5 em 120 pregões, amostra completa). Diagnóstico de regime feito
-na versão base do sinal: ali o efeito concentra-se no pós-crise (2009–2010) e
-desaparece cortando esses anos — tratamos a dependência de regime como
-fragilidade declarada do canal de risco. No sensor FinBERT esse canal não
-aparece. Registramos a divergência como está.
+**H2 — risco: associação em amostra cheia que NÃO sobrevive à validação
+temporal.** Na amostra completa, a TD ponderada associa-se a volatilidade
+futura (t = +2,5 no sensor LM; nada no FinBERT). Mas o teste walk-forward
+(estimar só com o passado em cada corte anual e conferir no futuro não
+visto) reprova o canal: o β futuro zera a partir de 2015 e fica negativo nos
+recortes recentes — concordância de sinal em só 3 de 12 cortes. Conclusão:
+o poder preditivo de risco existiu no eco da crise (2009–2014) e se
+extinguiu; não o utilizamos como ferramenta prospectiva.
 
 **H3 — operacional.** O valor absoluto da surpresa de lucro seguinte aumenta
 com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
@@ -129,7 +131,25 @@ com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
 meses após a call; efeitos fixos de empresa e mês; controles de valor,
 momentum, tamanho e reversão): coeficiente positivo nos dois sensores (t =
 +2,1 LM; +1,8 FinBERT; artigo: +2,2) — consistente com o mecanismo do artigo:
-o mercado penaliza no anúncio e exige retorno maior depois.
+o mercado penaliza no anúncio e exige retorno maior depois. (Validação
+walk-forward desta camada: pendente — declarado.)
+
+**Validação temporal (a pirâmide completa).** Para cada hipótese, três
+níveis de teste fora da amostra cheia, todos reportados por inteiro:
+
+| teste | H1 (CAR) | H2 (vol) | H3 (\|SUE\|) |
+|---|---|---|---|
+| walk-forward do β condicional (cortes anuais: passado→futuro concordam?) | 10/12 | **3/12** | 9/12 |
+| idem, cortes TRIMESTRAIS (48 momentos possíveis) | β passado negativo em 48/48; futuro confirma em 40/48 | — | — |
+| previsão por evento SEM controles (ordenar por TD e conferir à parte, 50 tri) | 42% de acerto | 58% | 35% |
+
+Leitura: a relação **condicional** da H1 (com controles e efeitos fixos) é
+estável e antecipável em todos os momentos testados; a versão
+**incondicional** (ordenar empresas cruamente por TD) não prevê nada — o
+sinal existe, mas misturado a características de firma no corte cruzado.
+H2 e H3 não passam na validação temporal como ferramentas prospectivas.
+(Nota: cortes adjacentes compartilham dados; as contagens medem
+estabilidade, não testes independentes.)
 
 ## 5. Backtest
 
@@ -150,29 +170,26 @@ quintil alto de FinBERT embute aposta em ações de baixa volatilidade, um
 fator, não tom; histórico próprio +0,6% (0,07). Mercado no período: Sharpe
 0,53. Nenhuma construção monetiza em quintis.
 
-**Leitura honesta e a estratégia proposta.** O prêmio documentado no painel
-é identificado *dentro* da empresa (com efeitos fixos e controles) e é
-pequeno; o quintil incondicional acima funciona como **teste de estresse da
-implementação ingênua** — e o resultado (fraco, como registramos que seria)
-diz que o sinal não é um long-short isolado em mega caps. A estratégia CORO
-que propomos usa o sinal onde a evidência o sustenta, em duas pernas:
+**Leitura honesta e o que a estratégia pode (e não pode) prometer.** A
+bateria completa de testes de implementação — carteira de quintis, previsão
+por evento em todos os momentos, out-of-sample 2023–25 — dá o mesmo
+veredito: **ordenar ações por TD, sozinho, não gera alpha negociável em
+large caps.** O prêmio identificado no painel é condicional (dentro da
+empresa, com controles), pequeno (~15 bps por variação interquartil) e é
+soterrado por características de firma no corte cruzado (diagnóstico
+explícito: o quintil alto do sinal FinBERT embute aposta em baixa
+volatilidade — correlação entre pernas de só 0,6).
 
-- **Perna de retorno (tilt de evento):** após cada call, o escore de
-  divergência da empresa é comparado ao histórico dela mesma (percentil
-  estritamente passado — a forma como o efeito é identificado no painel);
-  empresas no topo recebem sobrepeso por ~3 meses dentro de uma carteira
-  base, capturando o prêmio de risco pós-anúncio (t = +2,1 e +1,8 nos dois
-  sensores; mesmo desenho da Tabela 6 do artigo).
-- **Perna de risco (overlay):** as mesmas empresas têm volatilidade futura
-  maior (t = +2,5); o escore entra como redutor de tamanho de posição no
-  curto prazo, transformando a previsão de risco em melhora de retorno
-  ajustado, mesmo onde o alpha bruto é modesto.
-
-Em large caps, o edge é estatisticamente comprovado e economicamente
-modesto — e é por isso que a expansão natural da estratégia é para
-small/mid caps, onde o próprio artigo documenta efeito mais forte (nota 6:
-cresce em firmas menos complexas) e onde a atenção do mercado é mais
-escassa. Essa expansão está em execução para a entrega final (ver §7).
+O CORO é portanto apresentado pelo que a evidência sustenta: um **motor de
+análise de eventos** que entrega, minutos após cada call, um escore com
+conteúdo informacional validado em pirâmide (precificação no anúncio
+estável em 48/48 momentos no sentido condicional, dois sensores
+independentes) — desenhado para operar como **insumo condicional num
+arcabouço multifator**, não como estratégia isolada. A engenharia dessa
+integração (interações com fatores, universo, dimensionamento) é o
+trabalho da entrega final; o teste que falta para a perna de retorno
+(walk-forward da Tabela 6) está declarado como pendente e será feito antes
+de qualquer promessa sobre ela.
 
 **Vieses tratados:** sem escolha oportunista de período (2005–2025 tudo);
 execução T+1 com carimbo de hora da call (27% das calls pós-fechamento
@@ -194,8 +211,10 @@ mineração de especificação).
    deslistadas em fonte gratuita.
 4. **Efeito pequeno**: −0,15% por variação interquartil não paga custos como
    estratégia isolada de anúncio em large caps.
-5. **Regime**: o canal de risco (H2) concentra-se em 2009–2010; o canal de
-   preço (H1) é estável entre subperíodos (testado 2009–2016 vs 2017–2025).
+5. **Regime e validação temporal**: o canal de risco (H2) reprova no
+   walk-forward (extinto após ~2014) e o de operacional (H3) é fraco
+   prospectivamente; só o canal de preço (H1) atravessa todos os testes
+   temporais — e apenas na forma condicional, não como ordenação crua.
 6. **Ambiguidade do artigo**: a definição do centroide tem duas leituras;
    reportamos as duas (a igual-ponderada é nula; a agregada replica). Não
    escolhemos a leitura pelos resultados: a evidência textual do artigo
@@ -224,11 +243,13 @@ a qualidade dos dados dele, não a época. A fronteira segue aberta e
 documentada; não a apresentamos como resultado.
 
 **Próximos passos até a entrega final (17/08):**
-1. **Implementação do overlay de risco** (perna H2) na carteira base e
-   desenho do tilt condicional fundamentado no painel da Tabela 6;
-2. Robustez final: sensibilidade a custos, análise de decay no tempo;
-3. Se houver tempo e dados melhores (preços de deslistadas), revisitar a
-   fronteira small/mid com o pré-registro já existente.
+1. **Walk-forward da camada de retorno (Tabela 6)** — o teste que decide se
+   a perna de tilt pode ser prometida; sem ele, não será;
+2. **Desenho da integração multifator** do escore CORO (interações com
+   fatores e regimes), com contagem honesta de tentativas e Deflated Sharpe;
+3. Robustez final: sensibilidade a custos, análise de decay;
+4. Se houver dados melhores (preços de deslistadas), revisitar a fronteira
+   small/mid com o pré-registro já commitado.
 
 ## 8. Uso de IA Generativa no processo
 
