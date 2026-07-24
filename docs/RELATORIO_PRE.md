@@ -120,9 +120,14 @@ temporal.** Na amostra completa, a TD ponderada associa-se a volatilidade
 futura (t = +2,5 no sensor LM; nada no FinBERT). Mas o teste walk-forward
 (estimar só com o passado em cada corte anual e conferir no futuro não
 visto) reprova o canal: o β futuro zera a partir de 2015 e fica negativo nos
-recortes recentes — concordância de sinal em só 3 de 12 cortes. Conclusão:
-o poder preditivo de risco existiu no eco da crise (2009–2014) e se
-extinguiu; não o utilizamos como ferramenta prospectiva.
+recortes recentes — concordância de sinal em só 3 de 12 cortes. Fizemos uma
+rodada final pré-comprometida corrigindo a especificação na direção que
+favorecia a hipótese (log-vol, padrão da literatura, nos dois horizontes 20
+e 120 dias): o resultado piorou — no horizonte de 120 dias, o β futuro foi
+positivo em 0 de 48 momentos, com o β passado positivo em 48 de 48.
+Conclusão: o poder preditivo de risco existiu no eco da crise (2009–2014) e
+se extinguiu; a H2 é o nosso caso-testemunha de miragem de amostra cheia, e
+não a utilizamos como ferramenta prospectiva.
 
 **H3 — operacional.** O valor absoluto da surpresa de lucro seguinte aumenta
 com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
