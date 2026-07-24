@@ -143,18 +143,25 @@ todos os resultados reportados, inclusive os contrários).**
 | 2a. walk-forward anual do β condicional | 10/12 | **3/12** | 9/12 |
 | 2b. walk-forward TRIMESTRAL (48 momentos) — passado / futuro na direção da hipótese | 48/48 · **40/48** | 48/48 · **15/48** | 48/48 · 32/48 |
 | 3. previsão por evento sem controles (50 trimestres à parte) | 42% de acerto | 58% | 35% |
+| 4. previsão por evento **condicional** (resíduo do modelo treinado no passado; o teste que casa com a hipótese) | **62% · spread −0,14% · t=−2,12** | 52% · t=+0,27 | **71% · spread +0,74% · t=+3,58** |
 
-A linha 2b contém a lição central do trabalho: **nas três hipóteses, o β
-estimado com o passado aponta a direção "esperada" em 48 de 48 momentos —
-em amostra corrente, as três pareceriam confirmadas. Só o futuro as
-separa**: H1 é confirmada pelo futuro em 83% dos momentos; H2 é contrariada
-em 69% deles (canal extinto após ~2014); H3 fica em 67% sempre sem força
-(t<1). Se tivéssemos parado na estimação em amostra cheia, venderíamos três
-canais; a validação temporal mostra que apenas um é real — e apenas na
-forma condicional (a versão incondicional, ordenar empresas cruamente por
-TD, não prevê nada: o sinal existe misturado a características de firma).
-(Nota: cortes adjacentes compartilham dados; as contagens medem
-estabilidade, não testes independentes.)
+Duas lições estruturam a leitura. **Primeira (linha 2b):** nas três
+hipóteses, o β estimado com o passado aponta a direção "esperada" em 48 de
+48 momentos — em amostra corrente, as três pareceriam confirmadas. Só o
+futuro as separa: H2 é contrariada em 69% dos momentos (canal extinto após
+~2014) e é descartada; H1 e H3 sobrevivem. **Segunda (linhas 3 vs 4): o
+teste precisa casar com a afirmação.** A versão incondicional (ordenar
+empresas cruamente por TD) não prevê nada, porque mistura o sinal com
+características de firma; quando a previsão usa o modelo condicional
+treinado só no passado (resíduos), a H1 valida por evento fora da amostra
+(t=−2,12; spread negativo em todos os anos desde 2019) e a H3 entrega o
+resultado prospectivo mais forte do projeto (t=+3,58; 71% dos trimestres):
+divergência de tom hoje prevê imprevisibilidade do lucro do trimestre
+seguinte. Registro de método: a linha 4 não estava no desenho original —
+nasceu da revisão interna; o que a defende é ser o teste teoricamente
+correto da afirmação condicional, e o fato de reprovar a H2 junto (um teste
+complacente não reprovaria). (Nota: cortes adjacentes compartilham dados;
+as contagens medem estabilidade, não testes independentes.)
 
 ## 5. Backtest
 
@@ -186,15 +193,18 @@ explícito: o quintil alto do sinal FinBERT embute aposta em baixa
 volatilidade — correlação entre pernas de só 0,6).
 
 O CORO é portanto apresentado pelo que a evidência sustenta: um **motor de
-análise de eventos** que entrega, minutos após cada call, um escore com
-conteúdo informacional validado em pirâmide (precificação no anúncio
-estável em 48/48 momentos no sentido condicional, dois sensores
-independentes) — desenhado para operar como **insumo condicional num
-arcabouço multifator**, não como estratégia isolada. A engenharia dessa
-integração (interações com fatores, universo, dimensionamento) é o
-trabalho da entrega final; o teste que falta para a perna de retorno
-(walk-forward da Tabela 6) está declarado como pendente e será feito antes
-de qualquer promessa sobre ela.
+análise de eventos** cujo escore, minutos após cada call, carrega dois
+conteúdos validados prospectivamente por evento (teste condicional, linha 4
+da matriz): (i) **precificação no anúncio** — resíduo de CAR menor para
+divergência alta (t=−2,12; negativo todos os anos desde 2019); (ii)
+**incerteza do próximo lucro** — previsão da magnitude da surpresa do
+trimestre seguinte (t=+3,58, o resultado prospectivo mais forte do
+projeto). As aplicações coerentes com isso: condicionamento de exposição a
+eventos, posicionamento de volatilidade em torno do PRÓXIMO anúncio das
+empresas de divergência alta, e insumo num arcabouço multifator — não
+long-short isolado por ordenação crua (reprovado e explicado). A
+engenharia dessas aplicações é o trabalho da entrega final; o walk-forward
+da camada de retorno mensal (Tabela 6) segue pendente e declarado.
 
 **Vieses tratados:** sem escolha oportunista de período (2005–2025 tudo);
 execução T+1 com carimbo de hora da call (27% das calls pós-fechamento
