@@ -5,10 +5,54 @@ Equipe: Marcelo e Caio · Orientação: Profa. Nadia Cardoso Moreira
 Repositório (código + dados derivados + replicação em 4 comandos):
 https://github.com/marceleann/Caio-e-Marcelo-e-Vinicius
 
-> **[NOME A CONFIRMAR PELO TIME]** Proposta: **CORO** — o robô escuta o coro
-> de gestores de cada earnings call; quando o coro desafina, o mercado ouve.
-> O nome resume a tese em uma imagem: não medimos o tom médio da empresa, e
-> sim o desalinhamento entre as vozes que a representam.
+> **[NOME A CONFIRMAR PELO TIME]** Em avaliação: **DESAFINADO** ("quando a
+> diretoria desafina, o mercado ouve"), **DISSONA**, **OUVIDOR** ou **CORO**.
+> Qualquer que seja a escolha, o nome resume a tese em uma imagem: não
+> medimos o tom médio da empresa, e sim o desalinhamento entre as vozes que
+> a representam.
+
+---
+
+## Resumo executivo — a história em uma página
+
+**O ponto de partida.** Numa teleconferência de resultados, a empresa ensaia
+uma mensagem única — mas várias vozes a entregam: CEO, CFO, diretores. A
+tese deste trabalho é que, quando essas vozes desafinam entre si, isso é
+informação: desacordo interno e incerteza que a mensagem oficial tenta
+uniformizar, mas que o Q&A ao vivo não deixa esconder. Essa divergência tem
+medida (a **Tone Distance** de Angelo et al., 2025) e, mostramos, tem preço.
+Replicamos o artigo do zero no S&P 500 — 33.362 calls, 685 empresas,
+2005–2025, dados 100% públicos — com uma única inovação deliberada: um
+segundo medidor de tom, o modelo neural FinBERT, ao lado do dicionário
+Loughran-McDonald do artigo.
+
+**O que encontramos, em três atos.** *Primeiro:* a hipótese central replica
+— o mercado penaliza no anúncio a empresa cujos gestores divergem (t até
+−2,9, e o resultado sobrevive à troca completa do sensor de tom). No
+caminho, um achado próprio: a fórmula do artigo admite duas leituras, e
+diagnosticar qual delas separa sinal de ruído (o peso de fala de cada
+gestor) virou contribuição metodológica. *Segundo:* a tese vira carteira —
+comprar todo mês as 10 empresas de maior Tone Distance rendeu **+20,4% ao
+ano contra +13,2% do S&P 500** em 16 anos e meio (excesso com t=2,60), com
+a leitura honesta de que parte disso é o equal-weight e o tilt próprio da
+seleção (+3,6% a.a. sobre o universo equivalente) é consistente em todos os
+subperíodos, mas não significativo com só 10 nomes. *Terceiro:* o sinal
+prevê a **incerteza do próximo balanço** (t=+3,58, nosso resultado
+prospectivo mais forte) — divergência hoje antecipa surpresa de lucro
+grande no trimestre seguinte.
+
+**O que o trabalho descarta — e por que isso vale tanto quanto o que
+valida.** Das três hipóteses do artigo, a de risco (H2) morre na validação
+temporal: verdadeira como descrição, vazia como sinal. O detalhe central: em
+amostra cheia, as **três** hipóteses pareciam confirmadas em 48 de 48
+momentos testados — só separar passado de futuro distingue achado real de
+miragem estatística. Esse filtro, aplicado sem exceção, é o que sustenta
+cada número deste relatório; todos saem de scripts versionados num
+repositório público e se reproduzem em 4 comandos.
+
+*(As seções seguem os critérios do edital: identidade §1, conceito e
+hipóteses §2, dados e modelagem §3, resultados e validação §4, backtest e
+estratégia §5, análise crítica §6, conclusão §7, uso de GenAI §8.)*
 
 ---
 
@@ -130,9 +174,20 @@ têm reação maior (a H1), e janelas que encostam no evento herdam essa
 turbulência. Prospectivamente, nem a janela do artigo sustenta
 (walk-forward: futuro na direção esperada em 28/48 momentos; previsão
 condicional t=+1,0) — e a versão limpa falha por completo (0/48 no
-horizonte longo). Caracterização final: o "canal de risco" é sobretudo o
-prolongamento da reação ao anúncio, já contado na H1; risco de médio prazo
-genuinamente preditivo não existe nos nossos dados, e não o utilizamos.
+horizonte longo). **Caracterização final: a H2 se confirma como descrição e
+reprova como sinal.** Empresas de TD alta são, de fato, mais voláteis — na
+carteira executada do §5, o top-10 escolhido sempre *antes* do mês realiza
+vol de 20,6% contra 17,4% do bottom-10 —, mas essa é uma informação que a
+própria volatilidade passada já entrega de graça: exigida a prever algo
+*além* dela e dos controles, a TD fica muda em todas as 16 células
+pré-especificadas que testamos. E até a versão descritiva está em extinção:
+o gap de vol entre top-10 e bottom-10 cai de 6,1 p.p. (2009–14) para 1,2
+p.p. (2015–25) — a mesma data de morte que o walk-forward condicional havia
+apontado, agora confirmada por um método totalmente independente. O "canal
+de risco" é sobretudo o prolongamento da reação ao anúncio, já contado na
+H1; não o usamos como sinal — mas ele sobrevive como **explicação econômica
+do prêmio** da carteira: quem carrega as empresas de TD alta ganha mais
+correndo mais risco (§5), compensação, não almoço grátis.
 
 **H3 — operacional.** O valor absoluto da surpresa de lucro seguinte aumenta
 com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
@@ -178,7 +233,69 @@ correto da afirmação condicional, e o fato de reprovar a H2 junto (um teste
 complacente não reprovaria). (Nota: cortes adjacentes compartilham dados;
 as contagens medem estabilidade, não testes independentes.)
 
-## 5. Backtest
+## 5. Backtest e estratégia
+
+### 5.1 A tese executada: carteira das 10 maiores TD, mês a mês
+
+O teste mais concreto que uma tese de investimento admite: **comprá-la**. No
+fechamento de cada mês, a carteira compra em pesos iguais as **10 empresas
+de maior Tone Distance** (call mais recente dos 3 meses anteriores), segura
+o mês seguinte e rebalanceia. A seleção usa apenas informação disponível na
+data (auditado mês a mês pelo próprio script: nenhuma call usada é posterior
+ao início do mês investido); custos de 10 pontos-base por lado sobre o
+turnover realizado (34%/mês). 199 meses, de fev/2009 a ago/2025:
+
+| | Top-10 TD bruto | Top-10 TD líquido | Bottom-10 TD | Universo elegível EW | S&P 500 |
+|---|---|---|---|---|---|
+| Retorno acumulado | **+2.061%** | +1.783% | +959% | +1.208% | +682% |
+| Retorno ao ano | **+20,4%** | +19,4% | +15,3% | +16,8% | +13,2% |
+| Volatilidade a.a. | 20,6% | 20,6% | 17,4% | 17,3% | 14,9% |
+| Sharpe | 1,01 | 0,96 | 0,91 | 0,99 | 0,91 |
+| Drawdown máximo | −29% | −29% | −27% | −27% | −25% |
+
+| ano | top-10 TD | bottom-10 | universo EW | S&P 500 |
+|---|---|---|---|---|
+| 2009 | +113,1% | +44,6% | +61,3% | +35,0% |
+| 2010 | +19,2% | +10,1% | +23,1% | +12,8% |
+| 2011 | +4,8% | +8,6% | +0,5% | −0,0% |
+| 2012 | +39,3% | +24,6% | +20,2% | +13,4% |
+| 2013 | +30,5% | +53,1% | +37,8% | +29,6% |
+| 2014 | +10,3% | +5,8% | +15,6% | +11,4% |
+| 2015 | +5,9% | +6,8% | −1,5% | −0,7% |
+| 2016 | +6,2% | +15,5% | +17,6% | +9,5% |
+| 2017 | +18,2% | +12,8% | +21,6% | +19,4% |
+| 2018 | +0,4% | −14,5% | −7,2% | −6,2% |
+| 2019 | +44,5% | +27,1% | +31,5% | +28,9% |
+| 2020 | +11,8% | +2,7% | +15,8% | +16,3% |
+| 2021 | +20,0% | +23,4% | +31,3% | +26,9% |
+| 2022 | −14,1% | −0,4% | −10,4% | −19,4% |
+| 2023 | +37,6% | +14,7% | +17,8% | +24,2% |
+| 2024 | +18,9% | +19,5% | +15,2% | +23,3% |
+| 2025* | +11,2% | +16,2% | +7,5% | +9,8% |
+
+*(2025 até agosto. Composições conferíveis à mão: p.ex. ago/2025 = HII,
+MCD, CAH, ES, MCK, MTCH, CSCO, ANET, PODD, ABNB.)*
+
+**Como ler estes números com honestidade** — é aqui que o trabalho se separa
+de um backtest de folheto. O excesso sobre o S&P 500 é **+7,1% a.a.
+(t=2,60)**, com vitória em 58% dos meses e em 13 dos 17 anos. Mas a régua
+justa para uma carteira equal-weight não é um índice ponderado por valor, e
+sim o universo elegível equal-weight: contra ele, a seleção por TD adiciona
+**+3,6% a.a. (t=1,59)** — positivo em todos os subperíodos testados (2010+:
++1,8%; 2015+: +1,9%; 2019+: +2,6% a.a.), porém nunca significativo. Ou
+seja: cerca de metade do excesso sobre o índice vem do equal-weight em si,
+e o tilt próprio da TD, embora consistente, dilui-se no ruído de uma
+carteira de só 10 nomes — exatamente o que o efeito pequeno do painel (§4)
+prevê. O Sharpe praticamente igual ao do universo (1,01 vs 0,99) diz o
+resto: o retorno extra vem acompanhado de risco extra — compensação por
+carregar as empresas mais tensas, a leitura econômica do próprio artigo,
+não almoço grátis. A variante ponderada por palavras, melhor no painel,
+empata com o universo na cauda extrema de 10 nomes (com 10 ativos, o ranking
+simples captura melhor a ponta da distribuição). Séries mensais e
+composições em `data/interim/sp500/port10_*.csv`; replicável por
+`scripts/sp500_port10.py`.
+
+### 5.2 Quintis long-short calendar-time (especificação congelada)
 
 **Especificação congelada antes de rodar** (contra viés de escolha): carteira
 calendar-time com tranches sobrepostas; entrada no fechamento do pregão
@@ -195,36 +312,20 @@ o melhor — e ainda assim t(Sharpe)=0,99, não significativo)**; ponderada
 diagnóstico de pernas mostra correlação de só 0,6 entre long e short: o
 quintil alto de FinBERT embute aposta em ações de baixa volatilidade, um
 fator, não tom; histórico próprio +0,6% (0,07). Mercado no período: Sharpe
-0,53. Nenhuma construção monetiza em quintis.
+0,53. Nenhuma construção monetiza em quintis long-short.
 
-**Carteira executada (top-10, mês a mês).** Além dos quintis calendar-time,
-executamos a tese na forma mais concreta possível: no fechamento de cada mês,
-compra-se em pesos iguais as **10 empresas de maior TD** (call mais recente
-nos 3 meses anteriores — sem nenhuma informação futura na seleção, auditado
-mês a mês), segura-se o mês seguinte e rebalanceia-se; custos de 10 bps por
-lado sobre o turnover (34%/mês). Em 199 meses (fev/2009–ago/2025): o top-10
-por TD rende **+20,4% a.a. bruto (+19,4% líquido)** contra +13,2% do S&P 500
-— excesso de +7,1% a.a. (t=2,60) — e contra +16,8% do universo elegível
-equal-weight — excesso de +3,6% a.a. (t=1,59). A régua justa é a segunda:
-cerca de metade do excesso sobre o índice vem do próprio equal-weight, e o
-que a seleção por TD adiciona é um tilt positivo presente em todos os
-subperíodos (ex-2009: +1,8% a.a., t=0,91), mas não significativo com apenas
-10 nomes — exatamente o que o efeito pequeno do painel prevê quando diluído
-em ruído idiossincrático de carteira concentrada. A variante ponderada por
-palavras, melhor no painel, empata com o universo EW na cauda extrema de 10
-nomes. Séries mensais e composições estão em
-`data/interim/sp500/port10_monthly_*.csv` e `port10_holdings_*.csv`
-(replicável por `scripts/sp500_port10.py`).
+### 5.3 O que a estratégia pode (e não pode) prometer
 
-**Leitura honesta e o que a estratégia pode (e não pode) prometer.** A
-bateria completa de testes de implementação — carteira de quintis, previsão
-por evento em todos os momentos, out-of-sample 2023–25 — dá o mesmo
-veredito: **ordenar ações por TD, sozinho, não gera alpha negociável em
-large caps.** O prêmio identificado no painel é condicional (dentro da
-empresa, com controles), pequeno (~15 bps por variação interquartil) e é
-soterrado por características de firma no corte cruzado (diagnóstico
-explícito: o quintil alto do sinal FinBERT embute aposta em baixa
-volatilidade — correlação entre pernas de só 0,6).
+A bateria completa de implementação — carteira executada (5.1), quintis
+long-short (5.2), previsão por evento em todos os momentos, out-of-sample
+2023–25 — converge num veredito único: **ordenar ações por TD gera um tilt
+comprado direcional e consistente, mas não alpha estatisticamente
+demonstrável contra a régua justa em large caps.** O prêmio identificado no
+painel é condicional (dentro da empresa, com controles), pequeno (~15 bps
+por variação interquartil) e, no corte cruzado, disputa espaço com
+características de firma (diagnóstico explícito: o quintil alto do sinal
+FinBERT embute aposta em baixa volatilidade — correlação entre pernas de só
+0,6).
 
 O CORO é portanto apresentado pelo que a evidência sustenta: um **motor de
 análise de eventos** cujo escore, minutos após cada call, carrega dois
@@ -263,10 +364,14 @@ mineração de especificação).
    deslistadas em fonte gratuita.
 4. **Efeito pequeno**: −0,15% por variação interquartil não paga custos como
    estratégia isolada de anúncio em large caps.
-5. **Regime e validação temporal**: o canal de risco (H2) reprova no
-   walk-forward (extinto após ~2014) e o de operacional (H3) é fraco
-   prospectivamente; só o canal de preço (H1) atravessa todos os testes
-   temporais — e apenas na forma condicional, não como ordenação crua.
+5. **Regime e validação temporal**: o canal de risco (H2) reprova como
+   sinal incremental (extinto após ~2014, confirmado por dois métodos
+   independentes — §4 e §5.1). H1 e H3 atravessam a validação temporal, mas
+   cada um com sua ressalva: H1 só na forma condicional (não como ordenação
+   crua) e H3, embora o resultado prospectivo mais forte no teste
+   condicional (t=+3,58), tem acerto direcional apenas moderado no corte
+   trimestral (32/48). O prêmio de retorno mensal só ganha significância no
+   passado a partir de 2019.
 6. **Ambiguidade do artigo**: a definição do centroide tem duas leituras;
    reportamos as duas (a igual-ponderada é nula; a agregada replica). Não
    escolhemos a leitura pelos resultados: a evidência textual do artigo
@@ -280,6 +385,22 @@ universo independente, com dados públicos, e mostramos que ele sobrevive à
 troca completa do medidor de tom (léxico → neural). A contribuição própria é
 dupla: o diagnóstico de *como* medir (o peso de fala separa sinal de ruído em
 calls com muitos participantes) e a infraestrutura 100% replicável.
+
+**A tese de investimento, em um parágrafo:**
+
+> A divergência de tom entre os gestores na earnings call é informação
+> precificada em dois tempos. No anúncio, o mercado penaliza a empresa cuja
+> diretoria desafina (CAR condicional negativo, validado ano a ano desde
+> 2019). Nos meses seguintes, carregar as empresas de maior divergência
+> captura um prêmio de compensação: a carteira executada das 10 maiores TD
+> rendeu +20,4% a.a. contra +13,2% do S&P 500 em 16 anos e meio — retorno
+> extra pago por risco extra, coerente com a leitura econômica do artigo. E
+> o mesmo sinal prevê a magnitude da surpresa do **próximo** lucro
+> (t=+3,58), fazendo dele um termômetro de incerteza pré-anúncio. A
+> promessa honesta: um tilt direcional consistente, cuja significância
+> contra o universo equivalente pede diversificação maior que 10 nomes — um
+> motor de eventos e de incerteza validado, não uma máquina de alpha
+> isolada.
 
 **Sobre a expansão small/mid caps (teste já realizado, pré-registrado):**
 testamos a tese de expansão num universo de 2.250 firmas fora do S&P 500
@@ -300,6 +421,15 @@ documentada; não a apresentamos como resultado.
 2. Robustez final: sensibilidade a custos, análise de decay;
 3. Se houver dados melhores (preços de deslistadas), revisitar a fronteira
    small/mid com o pré-registro já commitado.
+
+**A lição que organiza o trabalho.** Nas três hipóteses, o modelo estimado
+com o passado apontava a direção "esperada" em 48 de 48 momentos — em
+amostra cheia, as três pareceriam confirmadas, e um relatório escrito nesse
+ponto venderia uma miragem com convicção. Só a validação temporal separou o
+real (H1, H3, o prêmio mensal) do artefato (H2). Esse filtro — e a
+disposição de descartar um resultado bonito quando o futuro o desmente — é
+o principal produto deste pré-relatório, e é o que a equipe leva para a
+entrega final.
 
 ## 8. Uso de IA Generativa no processo
 
