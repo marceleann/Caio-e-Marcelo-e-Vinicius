@@ -39,3 +39,7 @@ Thumbs.db
 .vscode/
 
 logs/
+
+# MF: bruto do Kaggle (847MB, licenca) e falas com texto integral
+data/raw/motleyfool/
+data/interim/mf/utterances_mf.parquet
