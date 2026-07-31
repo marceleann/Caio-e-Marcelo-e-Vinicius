@@ -197,6 +197,25 @@ quintil alto de FinBERT embute aposta em ações de baixa volatilidade, um
 fator, não tom; histórico próprio +0,6% (0,07). Mercado no período: Sharpe
 0,53. Nenhuma construção monetiza em quintis.
 
+**Carteira executada (top-10, mês a mês).** Além dos quintis calendar-time,
+executamos a tese na forma mais concreta possível: no fechamento de cada mês,
+compra-se em pesos iguais as **10 empresas de maior TD** (call mais recente
+nos 3 meses anteriores — sem nenhuma informação futura na seleção, auditado
+mês a mês), segura-se o mês seguinte e rebalanceia-se; custos de 10 bps por
+lado sobre o turnover (34%/mês). Em 199 meses (fev/2009–ago/2025): o top-10
+por TD rende **+20,4% a.a. bruto (+19,4% líquido)** contra +13,2% do S&P 500
+— excesso de +7,1% a.a. (t=2,60) — e contra +16,8% do universo elegível
+equal-weight — excesso de +3,6% a.a. (t=1,59). A régua justa é a segunda:
+cerca de metade do excesso sobre o índice vem do próprio equal-weight, e o
+que a seleção por TD adiciona é um tilt positivo presente em todos os
+subperíodos (ex-2009: +1,8% a.a., t=0,91), mas não significativo com apenas
+10 nomes — exatamente o que o efeito pequeno do painel prevê quando diluído
+em ruído idiossincrático de carteira concentrada. A variante ponderada por
+palavras, melhor no painel, empata com o universo EW na cauda extrema de 10
+nomes. Séries mensais e composições estão em
+`data/interim/sp500/port10_monthly_*.csv` e `port10_holdings_*.csv`
+(replicável por `scripts/sp500_port10.py`).
+
 **Leitura honesta e o que a estratégia pode (e não pode) prometer.** A
 bateria completa de testes de implementação — carteira de quintis, previsão
 por evento em todos os momentos, out-of-sample 2023–25 — dá o mesmo
