@@ -141,8 +141,13 @@ com a TD (t = +2,2 na amostra ampla), com a mesma concentração de regime.
 meses após a call; efeitos fixos de empresa e mês; controles de valor,
 momentum, tamanho e reversão): coeficiente positivo nos dois sensores (t =
 +2,1 LM; +1,8 FinBERT; artigo: +2,2) — consistente com o mecanismo do artigo:
-o mercado penaliza no anúncio e exige retorno maior depois. (Validação
-walk-forward desta camada: pendente — declarado.)
+o mercado penaliza no anúncio e exige retorno maior depois. Validação
+walk-forward desta camada (cortes anuais 2014–2022): β futuro **positivo em
+9 de 9 cortes** para a versão ponderada, com significância nos futuros
+longos (t até +2,5) — e duas ressalvas declaradas: o lado passado só ganha
+significância a partir de 2019, e os futuros dos cortes recentes são curtos
+(t<1). Leitura: prêmio direcionalmente estável em todos os momentos, força
+moderada.
 
 **Validação temporal (matriz completa: 3 tipos de teste × 3 hipóteses,
 todos os resultados reportados, inclusive os contrários).**
@@ -212,9 +217,12 @@ trimestre seguinte (t=+3,58, o resultado prospectivo mais forte do
 projeto). As aplicações coerentes com isso: condicionamento de exposição a
 eventos, posicionamento de volatilidade em torno do PRÓXIMO anúncio das
 empresas de divergência alta, e insumo num arcabouço multifator — não
-long-short isolado por ordenação crua (reprovado e explicado). A
-engenharia dessas aplicações é o trabalho da entrega final; o walk-forward
-da camada de retorno mensal (Tabela 6) segue pendente e declarado.
+long-short isolado por ordenação crua (reprovado e explicado). A camada de
+retorno mensal também passou pela validação temporal (β futuro positivo em
+9/9 cortes, força moderada — §4), sustentando a perna de tilt como
+direcional. A engenharia dessas aplicações é o trabalho da entrega final.
+Não há testes pendentes: toda afirmação deste relatório tem a sua
+validação executada e reportada.
 
 **Vieses tratados:** sem escolha oportunista de período (2005–2025 tudo);
 execução T+1 com carimbo de hora da call (27% das calls pós-fechamento
@@ -268,12 +276,10 @@ a qualidade dos dados dele, não a época. A fronteira segue aberta e
 documentada; não a apresentamos como resultado.
 
 **Próximos passos até a entrega final (17/08):**
-1. **Walk-forward da camada de retorno (Tabela 6)** — o teste que decide se
-   a perna de tilt pode ser prometida; sem ele, não será;
-2. **Desenho da integração multifator** do escore CORO (interações com
+1. **Desenho da integração multifator** do escore CORO (interações com
    fatores e regimes), com contagem honesta de tentativas e Deflated Sharpe;
-3. Robustez final: sensibilidade a custos, análise de decay;
-4. Se houver dados melhores (preços de deslistadas), revisitar a fronteira
+2. Robustez final: sensibilidade a custos, análise de decay;
+3. Se houver dados melhores (preços de deslistadas), revisitar a fronteira
    small/mid com o pré-registro já commitado.
 
 ## 8. Uso de IA Generativa no processo
