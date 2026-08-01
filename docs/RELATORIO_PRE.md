@@ -366,6 +366,14 @@ em cerca de 15 pontos-base por variação interquartil. Em paralelo, a
 carteira espelho, composta pelas 10 empresas de menor TD, rende +15,3% ao
 ano, 5,1 pontos abaixo do top-10, na direção prevista pela tese.
 
+Ademais, a tabela anual permite identificar os cenários favoráveis e
+desfavoráveis à estratégia. O top-10 destaca-se em anos de estresse ou de
+recuperação, como 2009, 2012, 2018, 2019 e 2023, chegando a fechar 2018
+em alta de 0,4% enquanto o índice caía 6,2%, e a cair menos que o S&P 500
+em 2022 (−14,1% contra −19,4%). Em contrapartida, a carteira fica para
+trás nos anos de alta ampla do mercado, como 2016 e 2021, quando
+concentrar em 10 nomes rende menos do que carregar o universo inteiro.
+
 O long-short por quintis, por sua vez, não monetiza. Na especificação
 congelada, os retornos líquidos anualizados ficam entre +0,3% e +4,4%
 conforme a construção, com o melhor Sharpe em 0,22, estatisticamente
