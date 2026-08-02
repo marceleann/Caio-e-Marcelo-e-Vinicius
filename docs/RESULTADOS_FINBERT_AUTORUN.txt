@@ -1,6 +1,6 @@
 ==========================================================================================
 SUÍTE FINAL LM x FinBERT — mesma amostra (eventos escorados), specs do Angelo
-eventos escorados com CAR: 27706 | 2009+: 26006 | firmas: 589
+eventos escorados com CAR: 27801 | 2009+: 26086 | firmas: 629
 corr(td, td_fb)=+0.381 | corr(td_w, td_fb_w)=+0.384
 ==========================================================================================
 
@@ -36,13 +36,13 @@ vol 120d ~ td_fb_w                 n= 23628 | coef=  +0.0003 t= +0.37 p=0.713 | 
 
 ==========================================================================================
 TABELA 6 — retorno mensal 3m pós-anúncio (FE firma+ano-mês, cluster ano-mês)
-T6 col1 só FE   ~ td       n= 79043 | coef= +0.1025 t= +1.32 p=0.186
-T6 col2         ~ td       n= 68498 | coef= +0.1588 t= +1.99 p=0.047
-T6 col1 só FE   ~ td_w     n= 79043 | coef= +0.1710 t= +1.75 p=0.079
-T6 col2         ~ td_w     n= 68498 | coef= +0.2159 t= +2.22 p=0.026
-T6 col1 só FE   ~ td_fb    n= 79043 | coef= +0.0059 t= +1.05 p=0.294
-T6 col2         ~ td_fb    n= 68498 | coef= +0.0112 t= +1.93 p=0.053
-T6 col1 só FE   ~ td_fb_w  n= 79043 | coef= +0.0093 t= +1.67 p=0.095
-T6 col2         ~ td_fb_w  n= 68498 | coef= +0.0105 t= +1.83 p=0.067
+T6 col1 só FE   ~ td       n= 79115 | coef= +0.1060 t= +1.37 p=0.171
+T6 col2         ~ td       n= 68539 | coef= +0.1608 t= +2.01 p=0.044
+T6 col1 só FE   ~ td_w     n= 79115 | coef= +0.1737 t= +1.78 p=0.075
+T6 col2         ~ td_w     n= 68539 | coef= +0.2182 t= +2.24 p=0.025
+T6 col1 só FE   ~ td_fb    n= 79115 | coef= +0.0061 t= +1.09 p=0.274
+T6 col2         ~ td_fb    n= 68539 | coef= +0.0114 t= +1.96 p=0.050
+T6 col1 só FE   ~ td_fb_w  n= 79115 | coef= +0.0096 t= +1.71 p=0.086
+T6 col2         ~ td_fb_w  n= 68539 | coef= +0.0107 t= +1.87 p=0.061
 
 DONE.

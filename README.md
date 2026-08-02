@@ -6,20 +6,31 @@ Desafio Quant AI — Itaú Asset 2026 · 100% open-source.
 
 ---
 
-## ⭐ Estado atual (julho/2026) — replicação S&P 500 completa
+## ⭐ Estado atual (agosto/2026) — entrega do pré-relatório
 
-O projeto evoluiu do estudo-piloto em tech (descrito abaixo) para a **replicação
-fiel de Angelo et al. (2025)** no S&P 500 completo (33 mil calls, 2005–2025,
-685 empresas). Resultado central: a **Tone Distance ponderada pelas palavras de
-cada gestor** (Tabela 8 do próprio paper) reproduz o arco completo do artigo em
-large caps — CAR negativo no anúncio (t≈−2,9), volatilidade futura maior
-(t≈+3,6) e retorno mensal subsequente positivo (t≈+2,3). A versão
-igual-ponderada é nula: a ponderação é a informação. Leia:
+**O relatório oficial da equipe está em
+[docs/RELATORIO_PRE.md](docs/RELATORIO_PRE.md)** (também em
+[PDF](docs/RELATORIO_PRE.pdf) e [DOCX](docs/RELATORIO_PRE.docx)). O robô
+chama-se **CORO**: ele mede a divergência de tom entre os gestores da mesma
+earnings call (Tone Distance, TD) em 33.362 calls do S&P 500 (2005–2025,
+685 empresas), com dois medidores de tom independentes (dicionário
+Loughran-McDonald e FinBERT).
 
-- **[docs/REVISAO_ANGELO_TABELAS.md](docs/REVISAO_ANGELO_TABELAS.md)** — a
-  revisão de fidelidade tabela a tabela contra o paper, com todos os números;
-- **[data/README.md](data/README.md)** — mapa dos dados versionados
-  (arquivo → script que o produz → fonte primária).
+Resultados centrais, todos reproduzíveis a partir deste repositório:
+
+- **H1 (precificação)**: o CAR do anúncio cai com a TD ponderada pelo volume
+  de fala (t até −2,8; mesmo quadro no FinBERT); a versão igual-ponderada é
+  nula — a ponderação é a informação;
+- **Retornos subsequentes**: coeficiente positivo no painel mensal (t≈+2,0);
+- **H3 (incerteza operacional)**: a TD prevê a magnitude da surpresa de
+  lucro do trimestre seguinte (t=+3,58 fora da amostra, o resultado
+  preditivo mais forte do projeto);
+- **H2 (risco)**: descartada como sinal após a validação temporal — a
+  associação em amostra cheia vem do eco do próprio anúncio e nenhuma das
+  16 especificações predefinidas prevê prospectivamente;
+- **Carteira executada**: top-10 por TD, rebalanceamento mensal, **+20,4%
+  a.a. bruto contra +13,2% do S&P 500** (fev/2009–ago/2025), com a leitura
+  honesta contra o universo equal-weight no relatório.
 
 ### Como replicar (sem reprocessar nada)
 
@@ -29,17 +40,25 @@ Todos os dados derivados estão versionados no repo. Basta:
 git clone https://github.com/marceleann/Caio-e-Marcelo-e-Vinicius.git
 cd Caio-e-Marcelo-e-Vinicius
 pip install pandas numpy statsmodels pyarrow          # o suficiente p/ análises
-python scripts/sp500_tdw_deep.py      # resultado central (TD ponderada)
-python scripts/sp500_paper_suite.py   # Tabelas 3/4/5 do paper
-python scripts/sp500_table6.py        # retorno mensal (Tabela 6)
-python scripts/sp500_backtest.py      # carteira calendar-time
+python scripts/sp500_finbert_suite.py   # H1 nos dois medidores (tabela central)
+python scripts/sp500_table6.py          # retornos mensais subsequentes
+python scripts/sp500_port10.py          # carteira executada top-10 (estratégia)
+python scripts/sp500_backtest.py        # long-short por quintis
 ```
 
-Cada script imprime as regressões com n, coeficiente, t e p — os mesmos números
-dos docs. Para refazer **do zero** (texto → TD → CAR → fundamentos), o
-`requirements.txt` completo e as fontes estão documentados em
-[data/README.md](data/README.md); as transcrições baixam sozinhas do
-HuggingFace na primeira execução.
+Cada script imprime as regressões e carteiras com n, coeficiente, t e p — os
+mesmos números do relatório. A bateria completa de robustez segue o mesmo
+padrão, um comando cada: `sp500_oos_conditional.py` (previsão condicional
+fora da amostra), `sp500_h2_reconcile.py` e `sp500_h2_final.py` (dissecação
+da H2), `sp500_walkforward.py` / `sp500_walkforward_q.py` /
+`sp500_t6_walkforward.py` (estabilidade temporal) e `sp500_paper_suite.py`
+(Tabelas 3/4/5 na especificação estrita do paper). Para refazer **do zero**
+(texto → TD → CAR → fundamentos), fontes e dependências completas estão em
+[data/README.md](data/README.md) — o mapa arquivo → script → fonte primária;
+as transcrições baixam sozinhas do HuggingFace na primeira execução. A
+revisão de fidelidade tabela a tabela contra o paper (registro de julho)
+está em [docs/REVISAO_ANGELO_TABELAS.md](docs/REVISAO_ANGELO_TABELAS.md);
+em caso de divergência, vale o relatório.
 
 ---
 

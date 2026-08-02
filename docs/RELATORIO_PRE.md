@@ -5,10 +5,11 @@ Equipe: Marcelo e Caio · Orientação: Profa. Nadia Cardoso Moreira
 Repositório com código, dados e replicação completa:
 https://github.com/marceleann/Caio-e-Marcelo-e-Vinicius
 
-> Nome do robô em definição pela equipe (alternativas em avaliação:
-> DESAFINADO, DISSONA, OUVIDOR, CORO). O conceito é único: o robô não mede
-> o tom médio da empresa, e sim o desalinhamento entre as vozes que a
-> representam.
+> O nome CORO vem da imagem que resume a estratégia: numa earnings call,
+> os executivos formam um coro que ensaia uma mensagem única, e o robô
+> mede o desalinhamento dessas vozes. Quando o coro desafina, há
+> informação: não medimos o tom médio da empresa, e sim a divergência
+> entre as vozes que a representam.
 
 ---
 
@@ -36,7 +37,7 @@ medida.
 
 Na implementação, a carteira que compra mensalmente as 10 empresas de
 maior TD rendeu +20,4% ao ano, contra +13,2% do S&P 500, ao longo de 199
-meses (fevereiro de 2009 a agosto de 2025), com ganho em 13 dos 17 anos.
+meses (fevereiro de 2009 a agosto de 2025), com ganho em 11 dos 17 anos.
 Por fim, o relatório também documenta o que não funcionou: a hipótese de
 que o sinal prevê volatilidade futura não resistiu aos testes de robustez
 e foi descartada, decisão que optamos por detalhar no texto justamente por
@@ -171,7 +172,7 @@ evento. O beta de cada evento é estimado em uma janela de 100 pregões
 (mínimo de 70), separada do evento por 50 pregões para não contaminar a
 estimativa, e o resíduo é acumulado nas janelas de 1, 2 e 5 pregões ao
 redor do anúncio. Além disso, as calls realizadas após o fechamento do
-mercado (27% da amostra) são ancoradas no pregão seguinte, respeitando o
+mercado (26% da amostra) são ancoradas no pregão seguinte, respeitando o
 momento em que a informação de fato chegou ao investidor.
 
 O segundo conceito é o painel com efeitos fixos, que constitui a espinha
@@ -224,15 +225,15 @@ Se a divergência de tom revela informação negativa, o retorno anormal do
 anúncio deve cair com a TD, tudo o mais constante. A tabela reporta as
 estatísticas t do coeficiente da TD sobre o CAR nas três janelas de
 evento, para as três construções do sinal e os dois medidores (amostra de
-2009 em diante, cerca de 23 mil eventos e 540 empresas). Cada célula
+2009 em diante, com cerca de 23,6 mil eventos). Cada célula
 responde à mesma pergunta: medindo desta forma, a divergência derruba o
 retorno do anúncio?
 
 | construção do sinal | LM (dicionário) | FinBERT (neural) |
 |---|---|---|
-| centro = média simples | −0,7 / −0,6 / −0,3 | +0,1 / −0,2 / −0,5 |
+| centro = média simples | −0,7 / −0,7 / −0,4 | +0,1 / −0,3 / −0,5 |
 | centro = tom agregado | −2,0 / −2,1 / −1,7 | −1,9 / −2,3 / −2,3 |
-| ponderada pelo volume de fala | −2,9 / −2,7 / −2,3 | −2,4 / −2,4 / −2,5 |
+| ponderada pelo volume de fala | −2,8 / −2,7 / −2,3 | −2,3 / −2,4 / −2,5 |
 
 (t nas janelas de 1, 2 e 5 pregões. Em termos econômicos, pular do
 quartil inferior ao superior da TD custa entre 0,11% e 0,16% de retorno
@@ -252,8 +253,8 @@ a explicação por artefato de instrumento.
 O efeito, contudo, não termina no anúncio. Em painel mensal, o retorno
 dos três meses seguintes à call foi regredido contra a TD, com efeitos
 fixos de empresa e mês e controles de valor, momentum, tamanho e
-reversão, e o coeficiente saiu positivo nos dois medidores (t=+2,1 no
-dicionário e +1,8 no FinBERT). Em conjunto com a H1, o desenho se fecha
+reversão, e o coeficiente saiu positivo nos dois medidores (t=+2,0 no
+dicionário e +2,0 no FinBERT). Em conjunto com a H1, o desenho se fecha
 de forma economicamente coerente: o mercado penaliza a empresa divergente
 no momento do anúncio e passa a exigir retorno maior para carregá-la nos
 meses seguintes, configurando o padrão clássico de compensação por risco.
@@ -263,7 +264,7 @@ meses seguintes, configurando o padrão clássico de compensação por risco.
 Se a divergência reflete incerteza interna sobre o negócio, ela deve
 antecipar surpresas de lucro maiores, em qualquer direção, razão pela
 qual a variável testada é o valor absoluto da surpresa. No painel
-completo, o coeficiente da TD é positivo (t=+2,2). Ademais, no exercício
+completo, o coeficiente da TD é positivo (t=+2,5). Ademais, no exercício
 de previsão fora da amostra, em que o modelo é treinado apenas com o
 passado e tenta prever eventos que nunca viu, a relação alcança t=+3,58,
 com acerto direcional em 71% dos trimestres, o que faz deste o resultado
@@ -344,14 +345,14 @@ agosto de 2025:
 | 2024 | +18,9% | +19,5% | +15,2% | +23,3% |
 | 2025* | +11,2% | +16,2% | +7,5% | +9,8% |
 
-(*2025 até agosto. Giro médio de 34% ao mês. As composições são
+(*2025 até agosto. Giro médio de 35% ao mês. As composições são
 verificáveis; agosto de 2025, por exemplo: HII, MCD, CAH, ES, MCK, MTCH,
 CSCO, ANET, PODD, ABNB. Séries e composições completas em
 data/interim/sp500/port10_*.csv; replicação por scripts/sp500_port10.py.)
 
 A leitura desses números foi feita em duas camadas. Contra o S&P 500, o
 excesso é de +7,1% ao ano com t=2,60, com vitória em 58% dos meses e em
-13 dos 17 anos, sendo este o número de manchete da estratégia. Contudo,
+11 dos 17 anos, sendo este o número de manchete da estratégia. Contudo,
 um leitor técnico notará uma sutileza: carteiras de pesos iguais tendem a
 superar índices ponderados por valor simplesmente por darem mais espaço a
 empresas menores. Para isolar o mérito da seleção, construiu-se a régua
@@ -411,7 +412,7 @@ Ademais, algumas variáveis dependem de proxies. A surpresa de lucro vem
 do Yahoo Finance, e não do consenso I/B/E/S, e dois controles presentes
 na literatura, a participação institucional e a qualidade de accruals,
 não foram reconstruídos, embora os outros 17 tenham sido. Na mesma linha,
-cerca de 3,4 mil eventos ficaram sem retorno anormal por falta de preços
+cerca de 3 mil eventos ficaram sem retorno anormal por falta de preços
 de empresas deslistadas em fonte gratuita, o que configura uma limitação
 de sobrevivência que preferimos declarar a esconder.
 
