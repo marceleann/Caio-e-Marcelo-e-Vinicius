@@ -72,8 +72,8 @@ qualquer teste:
 - H3 (operacional): quanto maior a divergência, mais imprevisível o
   resultado do trimestre seguinte.
 
-Para responder a essas perguntas, desenvolveu-se o robô que dá identidade
-ao projeto. Ele lê a transcrição de cada call, atribui cada fala ao seu
+Para responder a essas perguntas, desenvolveu-se o CORO, o robô que dá
+identidade ao projeto. Ele lê a transcrição de cada call, atribui cada fala ao seu
 orador, mede o tom de cada gestor e resume o desalinhamento em um escore
 por empresa-trimestre, disponível minutos após a publicação da
 transcrição. Na prática, isso se traduz em um insumo utilizável no mesmo
@@ -217,7 +217,8 @@ da literatura. A distribuição da TD calculada (média 0,0086, mediana
 0,0080, desvio 0,0047) fica próxima da referência (0,0079, 0,0074,
 0,0048), e os controles batem com os publicados: alavancagem de 0,24
 contra 0,235, alíquota efetiva mediana de 0,22 contra 0,21 e suavização
-de lucros de 1,6 contra 1,4. O ponto de partida, portanto, é comparável.
+de lucros mediana de 1,6 contra 1,4. O ponto de partida, portanto, é
+comparável.
 
 ### 5.1 H1, precificação no anúncio: confirmada
 
@@ -240,8 +241,9 @@ quartil inferior ao superior da TD custa entre 0,11% e 0,16% de retorno
 anormal no anúncio.)
 
 A hipótese se confirma na amostra completa sempre que o sinal respeita o
-volume de fala de cada gestor, como mostram as duas últimas linhas,
-significativas em todas as janelas. Além disso, o enfraquecimento é
+volume de fala de cada gestor, como mostram as duas últimas linhas: a
+ponderada é significativa em todas as janelas e nos dois medidores, e a
+agregada, na maior parte delas. Além disso, o enfraquecimento é
 gradual de baixo para cima, ou seja, quanto mais peso se dá ao ruído dos
 oradores marginais, mais o sinal se dilui, exatamente como antecipado na
 Seção 3. Por fim, as colunas se espelham: dois medidores que concordam
