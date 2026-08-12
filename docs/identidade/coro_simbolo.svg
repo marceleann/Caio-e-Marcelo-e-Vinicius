@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <!-- CORO: quatro vozes em unissono; uma desafina (laranja). -->
+  <rect x="8" y="8" width="464" height="464" rx="48" fill="#0F2E36"/>
+  <rect x="8" y="8" width="464" height="464" rx="48" fill="none" stroke="#1C4652" stroke-width="2"/>
+
+  <!-- trecho em unissono: quatro linhas quase sobrepostas -->
+  <g fill="none" stroke-linecap="round">
+    <!-- voz 1 (clara) -->
+    <path d="M 60 200
+             C 85 188, 105 212, 130 200
+             S 175 188, 200 200
+             C 230 214, 260 180, 292 168
+             S 360 150, 420 138"
+          stroke="#CFE3E8" stroke-width="7" opacity="0.95"/>
+    <!-- voz 2 -->
+    <path d="M 60 206
+             C 85 194, 105 218, 130 206
+             S 175 194, 200 206
+             C 230 218, 262 196, 294 190
+             S 362 180, 420 174"
+          stroke="#8FB4BD" stroke-width="7" opacity="0.95"/>
+    <!-- voz 3 -->
+    <path d="M 60 212
+             C 85 200, 105 224, 130 212
+             S 175 200, 200 212
+             C 230 224, 262 216, 294 216
+             S 362 212, 420 210"
+          stroke="#5E8A96" stroke-width="7" opacity="0.95"/>
+    <!-- a voz que desafina -->
+    <path d="M 60 218
+             C 85 206, 105 230, 130 218
+             S 175 206, 200 218
+             C 235 236, 268 272, 300 296
+             S 368 330, 420 342"
+          stroke="#FF7A1A" stroke-width="9"/>
+  </g>
+
+  <!-- ponto de escuta: onde a divergencia comeca -->
+  <circle cx="200" cy="212" r="7" fill="#FF7A1A"/>
+  <circle cx="200" cy="212" r="14" fill="none" stroke="#FF7A1A" stroke-width="2" opacity="0.45"/>
+  <circle cx="200" cy="212" r="22" fill="none" stroke="#FF7A1A" stroke-width="1.5" opacity="0.22"/>
+
+  <!-- wordmark -->
+  <text x="240" y="416" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="66" font-weight="650" letter-spacing="14" fill="#F5EFE8">CORO</text>
+  <text x="240" y="446" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="15" letter-spacing="1.5" fill="#8FB4BD">quando o coro desafina, o mercado ouve</text>
+</svg>
