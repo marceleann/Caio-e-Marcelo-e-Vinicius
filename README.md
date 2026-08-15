@@ -6,11 +6,14 @@ Desafio Quant AI — Itaú Asset 2026 · 100% open-source.
 
 ---
 
-## ⭐ Estado atual (agosto/2026) — entrega do pré-relatório
+## ⭐ Estado atual (agosto/2026) — entrega final
 
-**O relatório oficial da equipe está em
-[docs/RELATORIO_PRE.md](docs/RELATORIO_PRE.md)** (também em
-[PDF](docs/RELATORIO_PRE.pdf) e [DOCX](docs/RELATORIO_PRE.docx)). O robô
+**O relatório final da equipe (máx. 5 páginas, formato do desafio) está em
+[docs/RELATORIO_FINAL.md](docs/RELATORIO_FINAL.md)** (também em
+[PDF](docs/RELATORIO_FINAL.pdf) e [DOCX](docs/RELATORIO_FINAL.docx)); o
+pré-relatório de 31/07 permanece como registro em
+[docs/RELATORIO_PRE.md](docs/RELATORIO_PRE.md), e a identidade visual em
+[docs/identidade/](docs/identidade/). O robô
 chama-se **CORO**: ele mede a divergência de tom entre os gestores da mesma
 earnings call (Tone Distance, TD) em 33.362 calls do S&P 500 (2005–2025,
 685 empresas), com dois medidores de tom independentes (dicionário
