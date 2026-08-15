@@ -1,9 +1,6 @@
 # CORO: Divergência de tom entre gestores como sinal quantitativo de investimento
 
 Relatório Final · Desafio Quant AI 2026 (Itaú Asset)
-Equipe: Marcelo e Caio · Orientação: Profa. Nadia Cardoso Moreira
-Repositório com código, dados e replicação completa:
-https://github.com/marceleann/Caio-e-Marcelo-e-Vinicius
 
 > O nome CORO resume a estratégia: numa earnings call, os executivos formam
 > um coro que ensaia uma mensagem única, e o robô mede o desalinhamento
@@ -29,8 +26,9 @@ maior TD rendeu +20,4% ao ano contra +13,2% do S&P 500 em 199 meses
 (fev/2009 a ago/2025). O relatório também documenta o que não funcionou: a
 hipótese de que o sinal prevê volatilidade futura caiu nos testes de
 robustez e foi descartada, decisão detalhada por evidenciar o rigor do
-processo. Todos os resultados se reproduzem do repositório público com
-quatro comandos.
+processo. Todos os resultados se reproduzem do repositório do projeto com
+quatro comandos (código e dados à disposição da banca mediante
+solicitação).
 
 ## 1. Contexto, problema e identidade do robô
 
@@ -125,9 +123,14 @@ em pesos iguais (call mais recente dos três meses anteriores), carrega por
 um mês e rebalanceia, a 10 pontos-base por lado sobre o giro. O segundo é
 um long-short por quintis calendar-time com especificação congelada antes
 da execução (entrada no pregão seguinte à call, 63 pregões de manutenção,
-custos de 5 pontos-base por perna, 2006 a 2025). Todos os números saem de
-scripts versionados; a replicação exige quatro comandos e foi testada em
-clone limpo, com resultados idênticos.
+custos de 5 pontos-base por perna, 2006 a 2025). As defesas contra vieses
+são explícitas: contra look-ahead, a auditoria automática de datas e o
+alinhamento de fundamentos pela data de protocolo; contra overfitting, a
+especificação congelada antes da execução, o período completo sem seleção
+e a contagem de todas as tentativas para ajuste de múltiplos testes;
+contra sobrevivência, o universo com as empresas que saíram do índice.
+Todos os números saem de scripts versionados; a replicação exige quatro
+comandos e foi testada em clone limpo, com resultados idênticos.
 
 ## 5. Resultados econométricos
 
@@ -219,7 +222,8 @@ espelho (menor TD) rende 5,1 pontos menos ao ano. Quanto a cenários, o
 top-10 destaca-se em anos de estresse ou recuperação (fechou 2018 em
 +0,4% contra −6,2% do índice e caiu menos em 2022, −14,1% contra −19,4%)
 e fica para trás em altas amplas como 2016 e 2021. O giro médio é de 35%
-ao mês e as composições são verificáveis no repositório.
+ao mês e as composições mês a mês são verificáveis no repositório do
+projeto.
 
 O long-short por quintis não monetiza: retornos líquidos entre +0,3% e
 +4,4% conforme a construção, melhor Sharpe de 0,22 (estatisticamente
@@ -322,6 +326,7 @@ Language Model for Financial Communications. arXiv:2006.08097.
 
 ---
 
-Todos os números deste relatório saem de scripts versionados no
-repositório, foram reproduzidos em clone limpo e revalidados na data da
-entrega. Nenhum número foi digitado à mão.
+Todos os números deste relatório saem de scripts versionados, foram
+reproduzidos em clone limpo e revalidados na data da entrega. Nenhum
+número foi digitado à mão. Código, dados e documentação completa ficam à
+disposição da banca mediante solicitação.
