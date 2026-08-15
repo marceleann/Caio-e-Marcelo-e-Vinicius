@@ -33,15 +33,18 @@ solicitação).
 
 ## 1. Contexto, problema e identidade do robô
 
-Quem acompanha earnings calls conhece a cena: o CEO abre com a mensagem
-preparada e, no Q&A, cada executivo responde com o tom que consegue
-sustentar ao vivo. O texto é coordenado; o tom, nem sempre. E é aí que
-mora a oportunidade: um CFO visivelmente mais cauteloso que o CEO na mesma
-call revela desacordo interno ou incerteza que nenhum press release
-admitiria. Enquanto o mercado inteiro lê o que a empresa diz, o CORO mede
-o que a empresa deixa escapar. Daí as duas perguntas da pesquisa: é
-possível medir essa divergência de forma sistemática? E, medida, ela tem
-valor econômico?
+Toda temporada de resultados repete o mesmo ritual. A empresa prepara uma
+mensagem única para a sua teleconferência, o CEO a abre com o discurso
+ensaiado e, quando começam as perguntas dos analistas, cada executivo
+passa a responder com o tom que consegue sustentar ao vivo. O texto é
+coordenado; o tom, nem sempre. Nesse descompasso reside a oportunidade
+que motiva este trabalho, uma vez que um CFO visivelmente mais cauteloso
+que o CEO na mesma call revela desacordo interno, ou incerteza sobre o
+trimestre, que dificilmente chegaria a um press release. Enquanto o
+mercado lê o que a empresa diz, o CORO mede o que a empresa deixa
+escapar. Dessa observação nascem as duas perguntas que estruturam a
+pesquisa: é possível medir a divergência de tom de forma sistemática? E,
+uma vez medida, ela tem valor econômico?
 
 Dessas perguntas derivam as três hipóteses, registradas antes dos testes:
 
